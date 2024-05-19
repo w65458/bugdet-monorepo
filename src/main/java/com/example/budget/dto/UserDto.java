@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BudgetDto {
+public class UserDto {
     @JsonProperty
     private Long id;
     @JsonProperty
-    private Long userId;
+    private String username;
     @JsonProperty
-    private Double limitAmount;
-    @JsonProperty
-    private Long categoryId;
+    private String email;
 }
