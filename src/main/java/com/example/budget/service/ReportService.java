@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReportService {
     ReportDto generateMonthlyReport(Long userId, LocalDate month);
     List<ReportDto> getReportsByUserId(Long userId);
+    byte[] generateCsvReport(Long userId, LocalDate month);
+    byte[] generatePdfReport(Long userId, LocalDate month);
 }

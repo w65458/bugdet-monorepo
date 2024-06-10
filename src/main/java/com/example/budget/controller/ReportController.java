@@ -10,7 +10,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,4 +57,31 @@ public class ReportController {
         return new ResponseEntity<>(reports, HttpStatus.OK);
     }
 
+    @Operation(summary = "Generate a CSV report")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "CSV report generated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @GetMapping("/generate/csv")
+    public ResponseEntity<byte[]> generateCsvReport(@RequestParam Long userId, @RequestParam LocalDate month) {
+        byte[] csvReport = reportService.generateCsvReport(userId, month);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.csv\"")
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(csvReport);
+    }
+
+    @Operation(summary = "Generate a PDF report")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PDF report generated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @GetMapping("/generate/pdf")
+    public ResponseEntity<byte[]> generatePdfReport(@RequestParam Long userId, @RequestParam LocalDate month) {
+        byte[] pdfReport = reportService.generatePdfReport(userId, month);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.pdf\"")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfReport);
+    }
 }
