@@ -18,7 +18,7 @@ export const Header = () => {
 
                 <div className='flex text-2xl cursor-pointer items-center gap-2'>
                     <CurrencyEuroIcon className='w-7 h-7 text-black'/>
-                    <span className='font-bold'>MyMoneyApp</span>
+                    <span className='font-bold text-blue-600'>MyMoneyApp</span>
                 </div>
 
                 <div onClick={() => setisOpen(!isOpen)} className='w-7 h-7 absolute right-8 top-6 cursor-pointer md:hidden'>
@@ -27,12 +27,13 @@ export const Header = () => {
                     }
                 </div>
 
-                <ul className={`md:flex  md:items-center md:pb-0 pb-12 absolute md:static bg md:z-auto z-[-1]
+                <ul className={`md:flex  md:items-center  md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1]
                 left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${isOpen ? 'top-16 opacity-100' : 'top-[-490px] md:opacity-100 opacity-0'}`}>
                     {
                         Links.map(link => (
                             <li key={link.name} className='font-semibold my-7 md:my-0 md:ml-8'>
-                                <a href={link.link}>{link.name}</a>
+                                <a href={link.link} className={`px-3 py-2 rounded-md ${location.pathname === link.link ? 'bg-blue-600 text-white' : 'text-black'}`}>
+                                    {link.name}</a>
                             </li>))
                     }
                 </ul>
