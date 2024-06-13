@@ -1,4 +1,5 @@
 import {Header} from "./Header.jsx";
+import {Footer} from "./Footer.jsx";
 
 export const PageTemplate = ({ children }) => {
     return (
@@ -9,6 +10,7 @@ export const PageTemplate = ({ children }) => {
                     <h2 className='text-blue-600 text-2xl'>{children}</h2>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }
