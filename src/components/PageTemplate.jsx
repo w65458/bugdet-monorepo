@@ -5,9 +5,9 @@ export const PageTemplate = ({ children }) => {
     return (
         <>
             <Header />
-            <div className="pt-20 md:pt-24 px-4">
-                <div className="flex justify-center items-center h-screen">
-                    <h2 className='text-blue-600 text-2xl'>{children}</h2>
+            <div className=" md:pt-24 px-4">
+                <div className="">
+                    <h2 className='text-blue-600 text-2l'>{children}</h2>
                 </div>
             </div>
             <Footer/>

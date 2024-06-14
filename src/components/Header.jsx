@@ -13,7 +13,7 @@ export const Header = () => {
     let [isOpen, setisOpen] = useState(false);
 
     return (
-        <div className='shadow-md w-full fixed top-0 left-0 bg-white z-40'>
+        <div className='shadow-md w-full fixed top-0 left-0 bg-white'>
             <div className='md:px-10 py-4 px-7 md:flex justify-between items-center'>
 
                 <div className='flex text-2xl cursor-pointer items-center gap-2'>
