@@ -24,13 +24,13 @@ export const GoalForm = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Obsługa logiki wysyłania formularza
       console.log({ name, description, date, amount });
     }
   };
 
   return (
     <div>
+      <h1 className="text-center text-2xl font-bold mb-6">Utwórz Nowy Cel</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
