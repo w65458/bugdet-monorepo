@@ -17,9 +17,9 @@ export const Incomes = () => {
                     <h2 className='text-blue-600 text-2xl bg-blue-100 mb-4'>Formularz</h2>
                     <TransactionForm transaction_name="Wydatki"/>
                 </div>
-                <div className="flex-1 bg-blue-100 mx-2 p-4 mb-4 md:mb-0 rounded-md">
+                <div className="flex-1 bg-blue-100 mx-2 p-4 mb-4 md:mb-0 rounded-md flex flex-col">
                     <h2 className='text-blue-600 text-2xl bg-blue-100 mb-4'>Historia wydatków</h2>
-                    <div className="overflow-y-auto custom-scrollbar flex flex-col max-h-96">
+                    <div className="overflow-y-auto custom-scrollbar max-h-112">
                     <TransactionCard
                         category_icon={brainIcon}
                         title="Książka"
