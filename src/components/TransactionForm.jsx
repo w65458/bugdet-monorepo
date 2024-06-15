@@ -32,7 +32,6 @@ export const TransactionForm = ({ transaction_name }) => {
 
     return (
         <div>
-            <h1 className="text-center text-2xl font-bold mb-6">{transaction_name}</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
