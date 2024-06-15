@@ -13,7 +13,7 @@ export const GoalForm = () => {
     setDate(formattedDate);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!name) newErrors.name = 'Pole nazwa jest wymagane';
@@ -24,7 +24,24 @@ export const GoalForm = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log({ name, description, date, amount });
+      const goal = { name, description, date, amount };
+      try {
+        const response = await fetch('/api/goals', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(goal),
+        });
+        if (response.ok) {
+          console.log('Dane zostały pomyślnie wysłane');
+          // Tutaj możesz dodać logikę po pomyślnym wysłaniu danych, np. czyszczenie formularza
+        } else {
+          console.error('Wystąpił błąd podczas wysyłania danych');
+        }
+      } catch (error) {
+        console.error('Błąd połączenia z serwerem', error);
+      }
     }
   };
 
