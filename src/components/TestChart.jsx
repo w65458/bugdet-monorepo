@@ -28,7 +28,7 @@ const chartConfig = {
         dataLabels: {
             enabled: false,
         },
-        colors: ["#f11c4f"],
+        colors: ["#46bb00"],
         stroke: {
             lineCap: "round",
             curve: "smooth",
@@ -103,7 +103,7 @@ export default function TestChart() {
                 color="transparent"
                 className="flex flex-col gap-4 p-2 rounded-none md:flex-row md:items-center"
             >
-                <div className="w-max rounded-lg p-5 text-black bg-red-400">
+                <div className="w-max rounded-lg p-5 text-black bg-green-200">
                     <BanknotesIcon className="h-7 w-7" />
                 </div>
                 <div>
@@ -115,7 +115,7 @@ export default function TestChart() {
                         color="gray"
                         className="max-w-sm font-normal"
                     >
-                        Poniżej przedstawiono historie wydatków za pomocą diagramu
+                        Poniżej przedstawiono wykres przychodów
                     </Typography>
                 </div>
             </CardHeader>

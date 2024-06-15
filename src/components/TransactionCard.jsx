@@ -1,7 +1,7 @@
 import {AdjustmentsHorizontalIcon} from "@heroicons/react/16/solid/index.js";
 import {useEffect, useRef, useState} from "react";
 
-export const TransactionCard = ({ category_icon, title, amount, date, description }) => {
+export const TransactionCard = ({ category_icon, title, amount, date, description, amount_color }) => {
     const [menuOpen, setMenuOpen] = useState(false)
     const menuRef = useRef(null);
     const toogleMenu = () => {
@@ -33,7 +33,7 @@ export const TransactionCard = ({ category_icon, title, amount, date, descriptio
                 </div>
             </div>
             <div className="text-right">
-                <p className="text-lg font-semibold text-red-600">${amount}</p>
+                <p className={`text-lg font-semibold ${amount_color}`}>${amount}</p>
                 <p className="text-gray-500">{date}</p>
             </div>
             <div className="relative" ref={menuRef}>
