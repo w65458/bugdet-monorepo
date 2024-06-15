@@ -1,7 +1,5 @@
 import { useState } from "react";
 import {AddGoal} from "../components/AddGoal.jsx";
-import { Header } from "../components/Header.jsx";
-import {Footer} from "../components/Footer.jsx";
 import {PageTemplate} from "../components/PageTemplate.jsx";
 
 export const Goals = () => {

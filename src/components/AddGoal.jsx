@@ -18,4 +18,4 @@ export function AddGoal({ visible, onClose }) {
       </div>
     </div>
   );
-}
+};
