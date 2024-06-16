@@ -13,7 +13,6 @@ import chartConfig from "../config/chartExpensesConfig.js";
 
 export const Expenses = () => {
     return (
-        <PageTemplate>
             <PageTemplate>
                 <div className="bg-blue-100 p-4 mb-2 text-center rounded-lg flex items-center justify-center">
                     <span className="text-black text-lg font-semibold">Całkowite przychody</span>
@@ -112,6 +111,5 @@ export const Expenses = () => {
                     </div>
                 </div>
             </PageTemplate>
-        </PageTemplate>
     )
 }
