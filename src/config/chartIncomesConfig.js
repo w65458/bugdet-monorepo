@@ -1,13 +1,4 @@
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
-} from "@material-tailwind/react";
-import Chart from "react-apexcharts";
-import {BanknotesIcon, Square3Stack3DIcon} from "@heroicons/react/24/outline";
-
-const chartConfig = {
+const chartIncomesConfig = {
     type: "line",
     height: 240,
     series: [
@@ -94,34 +85,5 @@ const chartConfig = {
     },
 };
 
-export default function TestChart() {
-    return (
-        <Card>
-            <CardHeader
-                floated={false}
-                shadow={false}
-                color="transparent"
-                className="flex flex-col gap-4 p-2 rounded-none md:flex-row md:items-center"
-            >
-                <div className="w-max rounded-lg p-5 text-black bg-green-200">
-                    <BanknotesIcon className="h-7 w-7" />
-                </div>
-                <div>
-                    <Typography variant="h6" color="blue-gray">
-                        Wykres liniowy
-                    </Typography>
-                    <Typography
-                        variant="small"
-                        color="gray"
-                        className="max-w-sm font-normal"
-                    >
-                        Poniżej przedstawiono wykres przychodów
-                    </Typography>
-                </div>
-            </CardHeader>
-            <CardBody className="px-2 pb-0">
-                <Chart {...chartConfig} />
-            </CardBody>
-        </Card>
-    );
-}
+
+export default chartIncomesConfig;
