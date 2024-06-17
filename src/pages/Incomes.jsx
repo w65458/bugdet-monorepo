@@ -104,7 +104,7 @@ export const Incomes = () => {
                 <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
                     <h2 className="text-blue-600 text-2xl bg-blue-100 mb-4">Wykres przychodów</h2>
                     <div className="flex-col">
-                        <Card>
+                        <Card className='relative z-30'>
                             <CardHeader
                                 floated={false}
                                 shadow={false}
