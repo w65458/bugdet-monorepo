@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GoalCard = ({ name, description, amount, goal }) => {
+export const GoalCard = ({ name, description, amount, goal, onDonateClick }) => {
   const progress = (amount / goal) * 100;
 
   return (
@@ -9,7 +9,7 @@ export const GoalCard = ({ name, description, amount, goal }) => {
         <h3 className="text-xl font-bold">{name}</h3>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => console.log('Wpłać')}
+          onClick={() => onDonateClick(name)}
         >
           Wpłać
         </button>
