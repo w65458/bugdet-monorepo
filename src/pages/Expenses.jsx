@@ -88,7 +88,7 @@ export const Expenses = () => {
 
     return (
         <PageTemplate>
-            <div className="bg-blue-100 p-4 mb-2 text-center rounded-lg flex items-center justify-center">
+            <div className="bg-blue-100 p-4 text-center flex items-center justify-center">
                 <span className="text-black text-lg font-semibold">Całkowite wydatki</span>
                 <span className="text-red-500 text-3xl font-semibold p-1 ml-2">${formattedTotalExpense}</span>
             </div>
@@ -98,12 +98,12 @@ export const Expenses = () => {
                     <span className="block sm:inline"> Wydatek został dodany.</span>
                 </div>
             )}
-            <div className="flex flex-wrap justify-between p-4 mb-4 bg-gray-100">
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+            <div className="flex flex-wrap justify-between p-4 bg-gray-100">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className='text-blue-600 text-2xl bg-blue-100 mb-4'>Dodaj nowy wydatek</h2>
                     <TransactionForm transaction_name="Wydatki" userId={1} onAddTransaction={handleAddTransaction} />
                 </div>
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className='text-blue-600 text-2xl bg-blue-100 mb-4'>Wykres wydatków</h2>
                     <div className=''>
                         <Card className='flex-col'>
@@ -135,7 +135,7 @@ export const Expenses = () => {
                         </Card>
                     </div>
                 </div>
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className='text-blue-600 text-2xl bg-blue-100 mb-4'>Historia wydatków</h2>
                     <div className="overflow-y-auto custom-scrollbar flex flex-col" style={{ maxHeight: '500px' }}>
                         {transactions.map((transaction) => (

@@ -2,12 +2,12 @@ import { Typography } from "@material-tailwind/react";
 
 export function Footer() {
     return (
-        <footer className="shadow-md flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white py-6 px-6 text-center md:justify-between">
+        <footer className="shadow-md flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white py-6 px-6 text-center md:justify-between inset-x-0 bottom-0">
             <Typography color="blue-gray" className="font-normal">
                 <div className='flex cursor-pointer items-center gap-2'>
-                <span className='font-bold text-blue-600'>MyMoneyApp</span>
+                    <span className='font-bold text-blue-600'>MyMoneyApp</span>
                     &copy;
-            </div>
+                </div>
             </Typography>
             <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
                 <li>

@@ -26,13 +26,12 @@ export const GoalForm = ({ onClose }) => {
           body: JSON.stringify(goal),
         });
         if (response.ok) {
-          console.log('Dane zostały pomyślnie wysłane');
-          onClose();
+          onClose(); 
         } else {
-          console.error('Wystąpił błąd podczas wysyłania danych');
+          onClose(); 
         }
       } catch (error) {
-        console.error('Błąd połączenia z serwerem', error);
+        alert('Błąd połączenia z serwerem');
       }
     }
   };
@@ -85,12 +84,7 @@ export const GoalForm = ({ onClose }) => {
           {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
         </div>
         <div className="flex items-center justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Utwórz
-          </button>
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Utwórz</button>
         </div>
       </form>
     </div>

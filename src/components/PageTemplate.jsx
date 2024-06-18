@@ -4,11 +4,13 @@ import {Footer} from "./Footer.jsx";
 export const PageTemplate = ({ children }) => {
     return (
         <>
-            <Header />
-            <div className="mt-16">
-                  {children}
+        <div className="bg-black flex flex-col h-full">
+         <Header />
+            <div className="pt-16">
+                {children}
             </div>
-            <Footer/>
+         <Footer />
+        </div>
         </>
     )
 }

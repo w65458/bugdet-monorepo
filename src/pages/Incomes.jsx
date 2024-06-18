@@ -86,7 +86,7 @@ export const Incomes = () => {
 
     return (
         <PageTemplate>
-            <div className="bg-blue-100 p-4 mb-2]=[ text-center rounded-lg flex items-center justify-center">
+            <div className="bg-blue-100 p-4 mb-2]=[ text-center flex items-center justify-center">
                 <span className="text-black text-lg font-semibold">Całkowite przychody</span>
                 <span className="text-green-500 text-3xl font-semibold p-1 ml-2">${formattedTotalIncome}</span>
             </div>
@@ -96,12 +96,12 @@ export const Incomes = () => {
                     <span className="block sm:inline"> Przychód został dodany.</span>
                 </div>
             )}
-            <div className="flex flex-wrap justify-between p-4 mb-4 bg-gray-100">
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+            <div className="flex flex-wrap justify-between p-4 bg-gray-100">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className="text-blue-600 text-2xl bg-blue-100 mb-4">Dodaj nowy przychód</h2>
                     <TransactionForm transaction_name="Przychody" userId={1} onAddTransaction={handleAddTransaction} />
                 </div>
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className="text-blue-600 text-2xl bg-blue-100 mb-4">Wykres przychodów</h2>
                     <div className="flex-col">
                         <Card className='relative z-30'>
@@ -133,7 +133,7 @@ export const Incomes = () => {
                         </Card>
                     </div>
                 </div>
-                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 mx-2 p-4 mb-4 rounded-md">
+                <div className="flex-1 min-w-[350px] lg:min-w-[400px] bg-blue-100 m-2 p-4 rounded-md">
                     <h2 className="text-blue-600 text-2xl bg-blue-100 mb-4">Historia przychodów</h2>
                     <div className="overflow-y-auto custom-scrollbar flex flex-col" style={{ maxHeight: '500px' }}>
                         {transactions.map((transaction) => (

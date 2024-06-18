@@ -22,10 +22,9 @@ export const DonateForm = ({ goalName , onClose }) => {
           body: JSON.stringify(donation),
         });
         if (response.ok) {
-          console.log('Dane zostały pomyślnie wysłane');
           onClose();
         } else {
-          console.error('Wystąpił błąd podczas wysyłania danych');
+          onClose();
         }
       } catch (error) {
         console.error('Błąd połączenia z serwerem', error);
