@@ -34,29 +34,31 @@ export const Reports = () => {
 
     return (
         <PageTemplate>
-            <div className="flex flex-col bg-blue-100 p-6 text-black">
-                <h1 className="text-2xl mb-4">Wygeneruj swój raport za dany miesiąc</h1>
-                <div className="mb-4">
-                    <label htmlFor="month-select" className="block mb-2">Wybierz miesiąc:</label>
-                    <select
-                        id="month-select"
-                        value={selectedMonthIndex}
-                        onChange={handleMonthChange}
-                        className="p-2 border rounded text-black w-full"
+            <div className="flex flex-col justify-center">
+                <div className="flex flex-col bg-blue-100 p-6 text-black rounded-lg">
+                    <h1 className="text-2xl mb-4">Wygeneruj swój raport za dany miesiąc</h1>
+                    <div className="mb-4">
+                        <label htmlFor="month-select" className="block mb-2">Wybierz miesiąc:</label>
+                        <select
+                            id="month-select"
+                            value={selectedMonthIndex}
+                            onChange={handleMonthChange}
+                            className="p-2 border rounded text-black w-full"
+                        >
+                            {months.map((month) => (
+                                <option key={month.index} value={month.index}>
+                                    {month.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <button
+                        onClick={generateReport}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
-                        {months.map((month) => (
-                            <option key={month.index} value={month.index}>
-                                {month.name}
-                            </option>
-                        ))}
-                    </select>
+                        Generuj raport
+                    </button>
                 </div>
-                <button
-                    onClick={generateReport}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Generuj raport
-                </button>
             </div>
         </PageTemplate>
     );

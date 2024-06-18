@@ -55,7 +55,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
     };
 
     return (
-        <div>
+        <div className="p-2">
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
