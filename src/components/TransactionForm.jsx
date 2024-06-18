@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const TransactionForm = ({ transaction_name }) => {
+export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) => {
     const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [amount, setAmount] = useState('');
@@ -14,19 +15,42 @@ export const TransactionForm = ({ transaction_name }) => {
         setDate(formattedDate);
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
         if (!name) newErrors.name = 'Pole nazwa jest wymagane';
         if (!date) newErrors.date = 'Pole data jest wymagane';
         if (!amount) newErrors.amount = 'Pole kwota jest wymagane';
         if (description.length > 150) newErrors.description = 'Pole opis może mieć maksymalnie 150 znaków';
-        if (!category) newErrors.category = 'Pole kategoria jest wymagane';
+        if (!categoryId) newErrors.category = 'Pole kategoria jest wymagane';
 
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            console.log({ name, description, date, amount });
+            try {
+                const response = await axios.post('/api/transactions', {
+                    userId, // Assuming userId is passed as a prop
+                    categoryId: parseInt(categoryId), // Ensure categoryId is an integer
+                    amount: parseFloat(amount), // Ensure amount is sent as a number
+                    type: transaction_name,
+                    description,
+                    transactionDate: date
+                });
+                console.log('Transaction added:', response.data);
+                // Call the onAddTransaction callback with the new transaction
+                if (onAddTransaction) {
+                    onAddTransaction(response.data);
+                }
+                // Optionally, reset the form
+                setName('');
+                setCategoryId('');
+                setDescription('');
+                setDate('');
+                setAmount('');
+                setErrors({});
+            } catch (error) {
+                console.error('Error adding transaction:', error);
+            }
         }
     };
 
@@ -53,16 +77,16 @@ export const TransactionForm = ({ transaction_name }) => {
                     </label>
                     <select
                         id="category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
+                        value={categoryId}
+                        onChange={(e) => setCategoryId(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Wybierz kategorię</option>
-                        <option value="food">Jedzenie</option>
-                        <option value="transport">Transport</option>
-                        <option value="entertainment">Rozrywka</option>
-                        <option value="utilities">Rachunki</option>
-                        <option value="other">Inne</option>
+                        <option value="1">Jedzenie</option>
+                        <option value="2">Transport</option>
+                        <option value="3">Rozrywka</option>
+                        <option value="4">Rachunki</option>
+                        <option value="5">Inne</option>
                     </select>
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
                 </div>
