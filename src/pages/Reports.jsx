@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {PageTemplate} from "../components/PageTemplate.jsx";
-
+import axios from 'axios';
+import { PageTemplate } from "../components/PageTemplate.jsx";
 
 export const Reports = () => {
     const months = [
@@ -23,13 +23,76 @@ export const Reports = () => {
     };
 
     const [selectedMonthIndex, setSelectedMonthIndex] = useState(getCurrentMonthIndex());
+    const [reports, setReports] = useState([]);
+    const userId = 1; // Replace with dynamic user ID as needed
+
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await axios.get(`/api/reports/user/${userId}`);
+                setReports(response.data);
+            } catch (error) {
+                console.error('Error fetching reports:', error);
+            }
+        };
+
+        fetchReports();
+    }, [userId]);
 
     const handleMonthChange = (event) => {
         setSelectedMonthIndex(parseInt(event.target.value));
     };
 
-    const generateReport = () => {
-        console.log(`Generowanie raportu dla miesiąca z indeksem: ${selectedMonthIndex}`);
+    const generateReport = async () => {
+        try {
+            const response = await axios.post(`/api/reports/generate`, null, {
+                params: {
+                    userId: userId,
+                    month: `${new Date().getFullYear()}-${String(selectedMonthIndex + 1).padStart(2, '0')}-01`
+                }
+            });
+            console.log('Raport wygenerowany:', response.data);
+        } catch (error) {
+            console.error('Error generating report:', error);
+        }
+    };
+
+    const generatePdfReport = async () => {
+        try {
+            const response = await axios.get(`/api/reports/generate/pdf`, {
+                params: {
+                    userId: userId
+                },
+                responseType: 'blob'
+            });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'report.pdf');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error generating PDF report:', error);
+        }
+    };
+
+    const generateCsvReport = async () => {
+        try {
+            const response = await axios.get(`/api/reports/generate/csv`, {
+                params: {
+                    userId: userId
+                },
+                responseType: 'blob'
+            });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'report.csv');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error generating CSV report:', error);
+        }
     };
 
     return (
@@ -54,9 +117,21 @@ export const Reports = () => {
                     </div>
                     <button
                         onClick={generateReport}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
                     >
                         Generuj raport
+                    </button>
+                    <button
+                        onClick={generatePdfReport}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+                    >
+                        Generuj raport PDF
+                    </button>
+                    <button
+                        onClick={generateCsvReport}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Generuj raport CSV
                     </button>
                 </div>
             </div>
