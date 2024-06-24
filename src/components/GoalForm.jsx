@@ -7,6 +7,7 @@ export const GoalForm = ({ onClose, onGoalCreated, goalId = null, initialData = 
   const [amount, setAmount] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     if (goalId && initialData) {
@@ -19,6 +20,7 @@ export const GoalForm = ({ onClose, onGoalCreated, goalId = null, initialData = 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError('');
     const newErrors = {};
     if (!name) newErrors.name = 'Pole nazwa jest wymagane';
     if (!amount) newErrors.amount = 'Pole kwota jest wymagane';
@@ -32,99 +34,98 @@ export const GoalForm = ({ onClose, onGoalCreated, goalId = null, initialData = 
       const goal = { userId, name, description, targetAmount: parseFloat(amount), targetDate };
 
       try {
+        let response;
         if (goalId) {
-          const response = await axios.put(`/api/goals/${goalId}`, goal, {
+          response = await axios.put(`/api/goals/${goalId}`, goal, {
             headers: {
               'Content-Type': 'application/json',
             },
           });
-          if (response.status === 200) {
-            onGoalCreated(response.data);
-          } else {
-            alert('Wystąpił problem podczas aktualizacji celu');
-          }
         } else {
-          const response = await axios.post('/api/goals', goal, {
+          response = await axios.post('/api/goals', goal, {
             headers: {
               'Content-Type': 'application/json',
             },
           });
-          if (response.status === 201) {
-            onGoalCreated(response.data);
-          } else {
-            alert('Wystąpił problem podczas tworzenia celu');
-          }
+        }
+
+        if (response.status === 200 || response.status === 201) {
+          onGoalCreated(response.data);
+        } else {
+          setSubmitError('Wystąpił problem podczas zapisywania celu.');
         }
       } catch (error) {
         console.error('Błąd połączenia z serwerem', error);
+        setSubmitError('Wystąpił problem podczas połączenia z serwerem.');
       }
     }
   };
 
   return (
-      <div>
-        <h1 className="text-center text-2xl font-bold mb-6">{goalId ? 'Edytuj Cel' : 'Utwórz Nowy Cel'}</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-              Nazwa
-            </label>
-            <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Wpisz nazwę"
-            />
-            {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-              Opis
-            </label>
-            <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
-                placeholder="Wpisz opis (max 150 znaków)"
-                maxLength="150"
-                rows="5"
-            />
-            {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
-              Kwota
-            </label>
-            <input
-                id="amount"
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Wpisz kwotę"
-            />
-            {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="targetDate">
-              Data Docelowa
-            </label>
-            <input
-                id="targetDate"
-                type="date"
-                value={targetDate}
-                onChange={(e) => setTargetDate(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            {errors.targetDate && <p className="text-red-500 text-xs italic">{errors.targetDate}</p>}
-          </div>
-          <div className="flex items-center justify-center">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{goalId ? 'Edytuj' : 'Utwórz'}</button>
-          </div>
-        </form>
-      </div>
+    <div>
+      <h1 className="text-center text-2xl font-bold mb-6">{goalId ? 'Edytuj Cel' : 'Utwórz Nowy Cel'}</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Nazwa
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Wpisz nazwę"
+          />
+          {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+            Opis
+          </label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
+            placeholder="Wpisz opis (max 150 znaków)"
+            maxLength="150"
+            rows="5"
+          />
+          {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+            Kwota
+          </label>
+          <input
+            id="amount"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Wpisz kwotę"
+          />
+          {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="targetDate">
+            Data Docelowa
+          </label>
+          <input
+            id="targetDate"
+            type="date"
+            value={targetDate}
+            onChange={(e) => setTargetDate(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {errors.targetDate && <p className="text-red-500 text-xs italic">{errors.targetDate}</p>}
+        </div>
+        {submitError && <p className="text-red-500 text-xs italic text-center">{submitError}</p>}
+        <div className="flex items-center justify-center">
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{goalId ? 'Edytuj' : 'Utwórz'}</button>
+        </div>
+      </form>
+    </div>
   );
 };
