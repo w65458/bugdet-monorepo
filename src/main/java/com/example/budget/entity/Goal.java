@@ -38,6 +38,9 @@ public class Goal {
     private String name;
 
     @Column(nullable = false)
+    private Double currentValue;
+
+    @Column(nullable = false)
     private Double targetAmount;
 
     @Column(nullable = false)

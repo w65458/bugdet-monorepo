@@ -224,6 +224,7 @@ public class DataInitializer implements CommandLineRunner {
         GoalDto goal1 = new GoalDto();
         goal1.setUserId(user1.getId());
         goal1.setName("Wakacje w Turcji");
+        goal1.setCurrentValue(1000.00);
         goal1.setTargetAmount(3000.00);
         goal1.setTargetDate(LocalDate.now().plusMonths(6));
         goalService.createGoal(goal1);
@@ -231,6 +232,7 @@ public class DataInitializer implements CommandLineRunner {
         GoalDto goal2 = new GoalDto();
         goal2.setUserId(user2.getId());
         goal2.setName("iPhone 16");
+        goal2.setCurrentValue(2500.00);
         goal2.setTargetAmount(4500.00);
         goal2.setTargetDate(LocalDate.now().plusMonths(12));
         goalService.createGoal(goal2);
@@ -238,6 +240,7 @@ public class DataInitializer implements CommandLineRunner {
         GoalDto goal3 = new GoalDto();
         goal3.setUserId(user2.getId());
         goal3.setName("DJI Mini 4 PRO");
+        goal3.setCurrentValue(500.00);
         goal3.setTargetAmount(4000.00);
         goal3.setTargetDate(LocalDate.now().plusMonths(3));
         goalService.createGoal(goal3);

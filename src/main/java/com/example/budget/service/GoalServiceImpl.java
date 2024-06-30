@@ -28,6 +28,7 @@ public class GoalServiceImpl implements GoalService {
             Goal goal = Goal.builder()
                     .user(user.get())
                     .name(goalDto.getName())
+                    .currentValue(goalDto.getCurrentValue())
                     .targetAmount(goalDto.getTargetAmount())
                     .targetDate(goalDto.getTargetDate())
                     .build();
@@ -43,15 +44,25 @@ public class GoalServiceImpl implements GoalService {
         Optional<Goal> existingGoal = goalRepository.findById(goalId);
         if (existingGoal.isPresent()) {
             Goal goal = existingGoal.get();
-            goal.setName(goalDto.getName());
-            goal.setTargetAmount(goalDto.getTargetAmount());
-            goal.setTargetDate(goalDto.getTargetDate());
-
-            Optional<User> user = userRepository.findById(goalDto.getUserId());
-            if (user.isPresent()) {
-                goal.setUser(user.get());
-            } else {
-                throw new RuntimeException("User not found");
+            if (goalDto.getName() != null) {
+                goal.setName(goalDto.getName());
+            }
+            if (goalDto.getCurrentValue() != null) {
+                goal.setCurrentValue(goalDto.getCurrentValue());
+            }
+            if (goalDto.getTargetAmount() != null) {
+                goal.setTargetAmount(goalDto.getTargetAmount());
+            }
+            if (goalDto.getTargetDate() != null) {
+                goal.setTargetDate(goalDto.getTargetDate());
+            }
+            if (goalDto.getUserId() != null) {
+                Optional<User> user = userRepository.findById(goalDto.getUserId());
+                if (user.isPresent()) {
+                    goal.setUser(user.get());
+                } else {
+                    throw new RuntimeException("User not found");
+                }
             }
 
             Goal updatedGoal = goalRepository.save(goal);
