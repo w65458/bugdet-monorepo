@@ -11,7 +11,7 @@ public interface BudgetMapper {
 
     BudgetMapper INSTANCE = Mappers.getMapper(BudgetMapper.class);
 
-    @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     @Mapping(source = "user.id", target = "userId")
     BudgetDto budgetToBudgetDto(Budget budget);
     Budget budgetDtoToBudget(BudgetDto dto);

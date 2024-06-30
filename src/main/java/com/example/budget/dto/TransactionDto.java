@@ -16,7 +16,7 @@ public class TransactionDto {
     @JsonProperty
     private Long userId;
     @JsonProperty
-    private Long categoryId;
+    private String categoryName;
     @JsonProperty
     private Double amount;
     @JsonProperty

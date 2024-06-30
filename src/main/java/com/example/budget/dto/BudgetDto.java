@@ -16,5 +16,5 @@ public class BudgetDto {
     @JsonProperty
     private Double limitAmount;
     @JsonProperty
-    private Long categoryId;
+    private String categoryName;
 }

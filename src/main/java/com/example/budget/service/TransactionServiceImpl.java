@@ -28,7 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionDto createTransaction(TransactionDto transactionDto) {
         Optional<User> user = userRepository.findById(transactionDto.getUserId());
-        Optional<PaymentCategory> category = paymentCategoryRepository.findById(transactionDto.getCategoryId());
+        Optional<PaymentCategory> category = paymentCategoryRepository.findByNameIgnoreCase(transactionDto.getCategoryName());
 
         if (user.isPresent() && category.isPresent()) {
             Transaction transaction = Transaction.builder()

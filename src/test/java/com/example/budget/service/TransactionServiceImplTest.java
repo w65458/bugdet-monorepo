@@ -48,7 +48,7 @@ class TransactionServiceImplTest {
     void setUp() {
         transactionDto = new TransactionDto();
         transactionDto.setUserId(1L);
-        transactionDto.setCategoryId(1L);
+        transactionDto.setCategoryName("Elektoronika");
         transactionDto.setAmount(100.0);
         transactionDto.setType("Przychody");
         transactionDto.setDescription("Grocery shopping");
@@ -73,7 +73,7 @@ class TransactionServiceImplTest {
     @Test
     void createTransaction_ShouldReturnCreatedTransaction() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
-        when(paymentCategoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
+        when(paymentCategoryRepository.findByNameIgnoreCase(anyString())).thenReturn(Optional.of(category));
         when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
 
         TransactionDto result = transactionService.createTransaction(transactionDto);
@@ -82,7 +82,7 @@ class TransactionServiceImplTest {
         assertEquals(transaction.getAmount(), result.getAmount());
         assertEquals(transaction.getDescription(), result.getDescription());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, times(1)).findByNameIgnoreCase(anyString());
         verify(transactionRepository, times(1)).save(any(Transaction.class));
     }
 
@@ -96,7 +96,7 @@ class TransactionServiceImplTest {
 
         assertEquals("User or Category not found", exception.getMessage());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, times(1)).findByNameIgnoreCase(anyString());
         verify(transactionRepository, never()).save(any(Transaction.class));
     }
 

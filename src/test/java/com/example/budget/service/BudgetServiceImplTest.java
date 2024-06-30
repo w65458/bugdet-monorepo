@@ -46,7 +46,7 @@ class BudgetServiceImplTest {
     void setUp() {
         budgetDto = new BudgetDto();
         budgetDto.setUserId(1L);
-        budgetDto.setCategoryId(1L);
+        budgetDto.setCategoryName("Elektronika");
         budgetDto.setLimitAmount(500.0);
 
         user = new User();
@@ -65,7 +65,7 @@ class BudgetServiceImplTest {
     @Test
     void createBudget_ShouldReturnCreatedBudget() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
-        when(paymentCategoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
+        when(paymentCategoryRepository.findByNameIgnoreCase(anyString())).thenReturn(Optional.of(category));
         when(budgetRepository.save(any(Budget.class))).thenReturn(budget);
 
         BudgetDto result = budgetService.createBudget(budgetDto);
@@ -73,7 +73,7 @@ class BudgetServiceImplTest {
         assertNotNull(result);
         assertEquals(budget.getLimitAmount(), result.getLimitAmount());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, times(1)).findByNameIgnoreCase(anyString());
         verify(budgetRepository, times(1)).save(any(Budget.class));
     }
 
@@ -87,7 +87,7 @@ class BudgetServiceImplTest {
 
         assertEquals("User or Category not found", exception.getMessage());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, times(1)).findByNameIgnoreCase(anyString());
         verify(budgetRepository, never()).save(any(Budget.class));
     }
 
@@ -95,7 +95,7 @@ class BudgetServiceImplTest {
     void updateBudget_ShouldReturnUpdatedBudget() {
         when(budgetRepository.findById(anyLong())).thenReturn(Optional.of(budget));
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
-        when(paymentCategoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
+        when(paymentCategoryRepository.findByNameIgnoreCase(anyString())).thenReturn(Optional.of(category));
         when(budgetRepository.save(any(Budget.class))).thenReturn(budget);
 
         BudgetDto result = budgetService.updateBudget(1L, budgetDto);
@@ -104,7 +104,7 @@ class BudgetServiceImplTest {
         assertEquals(budget.getLimitAmount(), result.getLimitAmount());
         verify(budgetRepository, times(1)).findById(anyLong());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, times(1)).findByNameIgnoreCase(anyString());
         verify(budgetRepository, times(1)).save(any(Budget.class));
     }
 
@@ -119,7 +119,7 @@ class BudgetServiceImplTest {
         assertEquals("Budget not found", exception.getMessage());
         verify(budgetRepository, times(1)).findById(anyLong());
         verify(userRepository, never()).findById(anyLong());
-        verify(paymentCategoryRepository, never()).findById(anyLong());
+        verify(paymentCategoryRepository, never()).findByNameIgnoreCase(anyString());
         verify(budgetRepository, never()).save(any(Budget.class));
     }
 
@@ -132,10 +132,10 @@ class BudgetServiceImplTest {
             budgetService.updateBudget(1L, budgetDto);
         });
 
-        assertEquals("User or Category not found", exception.getMessage());
+        assertEquals("User not found", exception.getMessage());
         verify(budgetRepository, times(1)).findById(anyLong());
         verify(userRepository, times(1)).findById(anyLong());
-        verify(paymentCategoryRepository, times(1)).findById(anyLong());
+        verify(paymentCategoryRepository, never()).findByNameIgnoreCase(anyString());
         verify(budgetRepository, never()).save(any(Budget.class));
     }
 

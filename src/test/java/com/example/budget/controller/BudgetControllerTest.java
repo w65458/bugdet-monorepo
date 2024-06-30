@@ -46,7 +46,7 @@ class BudgetControllerTest {
         budgetDto = new BudgetDto();
         budgetDto.setId(1L);
         budgetDto.setUserId(1L);
-        budgetDto.setCategoryId(1L);
+        budgetDto.setCategoryName("Elektronika");
         budgetDto.setLimitAmount(200.0);
     }
 
@@ -59,7 +59,7 @@ class BudgetControllerTest {
                         .content(objectMapper.writeValueAsString(budgetDto)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(budgetDto.getId()))
-                .andExpect(jsonPath("$.categoryId").value(budgetDto.getCategoryId()))
+                .andExpect(jsonPath("$.categoryName").value(budgetDto.getCategoryName()))
                 .andExpect(jsonPath("$.limitAmount").value(budgetDto.getLimitAmount()));
 
         verify(budgetService, times(1)).createBudget(any(BudgetDto.class));
@@ -74,7 +74,7 @@ class BudgetControllerTest {
                         .content(objectMapper.writeValueAsString(budgetDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(budgetDto.getId()))
-                .andExpect(jsonPath("$.categoryId").value(budgetDto.getCategoryId()))
+                .andExpect(jsonPath("$.categoryName").value(budgetDto.getCategoryName()))
                 .andExpect(jsonPath("$.limitAmount").value(budgetDto.getLimitAmount()));
 
         verify(budgetService, times(1)).updateBudget(anyLong(), any(BudgetDto.class));
@@ -89,7 +89,7 @@ class BudgetControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(budgetDto.getId()))
-                .andExpect(jsonPath("$[0].categoryId").value(budgetDto.getCategoryId()))
+                .andExpect(jsonPath("$[0].categoryName").value(budgetDto.getCategoryName()))
                 .andExpect(jsonPath("$[0].limitAmount").value(budgetDto.getLimitAmount()));
 
         verify(budgetService, times(1)).getAllBudgetsByUserId(anyLong());

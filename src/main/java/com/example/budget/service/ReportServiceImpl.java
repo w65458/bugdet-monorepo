@@ -53,7 +53,7 @@ public class ReportServiceImpl implements ReportService {
                         .map(t -> new TransactionDto(
                                 t.getId(),
                                 t.getUser().getId(),
-                                t.getCategory().getId(),
+                                t.getCategory().getName(),
                                 t.getAmount(),
                                 t.getType(),
                                 t.getDescription(),

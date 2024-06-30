@@ -11,8 +11,11 @@ public interface TransactionMapper {
 
     TransactionMapper INSTANCE = Mappers.getMapper(TransactionMapper.class);
 
-    @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     @Mapping(source = "user.id", target = "userId")
     TransactionDto transactionToTransactionDto(Transaction transaction);
+
+    @Mapping(source = "categoryName", target = "category.name")
+    @Mapping(source = "userId", target = "user.id")
     Transaction transactionDtoToTransaction(TransactionDto transactionDto);
 }

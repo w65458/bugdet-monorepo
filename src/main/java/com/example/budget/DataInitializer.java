@@ -94,37 +94,37 @@ public class DataInitializer implements CommandLineRunner {
 
         BudgetDto budget1 = new BudgetDto();
         budget1.setUserId(user1.getId());
-        budget1.setCategoryId(foodCategory.getId());
+        budget1.setCategoryName(foodCategory.getName());
         budget1.setLimitAmount(1000.00);
         budgetService.createBudget(budget1);
 
         BudgetDto budget2 = new BudgetDto();
         budget2.setUserId(user1.getId());
-        budget2.setCategoryId(subscriptionCategory.getId());
+        budget2.setCategoryName(subscriptionCategory.getName());
         budget2.setLimitAmount(200.00);
         budgetService.createBudget(budget2);
 
         BudgetDto budget3 = new BudgetDto();
         budget3.setUserId(user2.getId());
-        budget3.setCategoryId(electronicsCategory.getId());
+        budget3.setCategoryName(electronicsCategory.getName());
         budget3.setLimitAmount(1500.00);
         budgetService.createBudget(budget3);
 
         BudgetDto budget4 = new BudgetDto();
         budget4.setUserId(user2.getId());
-        budget4.setCategoryId(transportCategory.getId());
+        budget4.setCategoryName(transportCategory.getName());
         budget4.setLimitAmount(300.00);
         budgetService.createBudget(budget4);
 
         BudgetDto budget5 = new BudgetDto();
         budget5.setUserId(user3.getId());
-        budget5.setCategoryId(entertainmentCategory.getId());
+        budget5.setCategoryName(entertainmentCategory.getName());
         budget5.setLimitAmount(500.00);
         budgetService.createBudget(budget5);
 
         TransactionDto transaction1 = new TransactionDto();
         transaction1.setUserId(user1.getId());
-        transaction1.setCategoryId(foodCategory.getId());
+        transaction1.setCategoryName(foodCategory.getName());
         transaction1.setAmount(150.00);
         transaction1.setType("Wydatki");
         transaction1.setDescription("Zakupy spożywcze w Biedronce");
@@ -133,7 +133,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto transaction2 = new TransactionDto();
         transaction2.setUserId(user1.getId());
-        transaction2.setCategoryId(subscriptionCategory.getId());
+        transaction2.setCategoryName(subscriptionCategory.getName());
         transaction2.setAmount(40.00);
         transaction2.setType("Wydatki");
         transaction2.setDescription("Subskrypcja Netflix");
@@ -142,7 +142,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto transaction3 = new TransactionDto();
         transaction3.setUserId(user2.getId());
-        transaction3.setCategoryId(electronicsCategory.getId());
+        transaction3.setCategoryName(electronicsCategory.getName());
         transaction3.setAmount(200.00);
         transaction3.setType("Wydatki");
         transaction3.setDescription("Zakup słuchawek");
@@ -151,7 +151,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto transaction4 = new TransactionDto();
         transaction4.setUserId(user2.getId());
-        transaction4.setCategoryId(transportCategory.getId());
+        transaction4.setCategoryName(transportCategory.getName());
         transaction4.setAmount(100.00);
         transaction4.setType("Wydatki");
         transaction4.setDescription("Bilet miesięczny na komunikację miejską");
@@ -160,7 +160,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto transaction5 = new TransactionDto();
         transaction5.setUserId(user3.getId());
-        transaction5.setCategoryId(entertainmentCategory.getId());
+        transaction5.setCategoryName(entertainmentCategory.getName());
         transaction5.setAmount(60.00);
         transaction5.setType(WYDATKI);
         transaction5.setDescription("Bilet do kina");
@@ -169,7 +169,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income1 = new TransactionDto();
         income1.setUserId(user1.getId());
-        income1.setCategoryId(salaryCategory.getId());
+        income1.setCategoryName(salaryCategory.getName());
         income1.setAmount(5000.00);
         income1.setType(PRZYCHODY);
         income1.setDescription("Wynagrodzenie za pracę");
@@ -178,7 +178,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income2 = new TransactionDto();
         income2.setUserId(user1.getId());
-        income2.setCategoryId(freelanceCategory.getId());
+        income2.setCategoryName(freelanceCategory.getName());
         income2.setAmount(800.00);
         income2.setType("Przychody");
         income2.setDescription("Projekt freelance - strona internetowa");
@@ -187,7 +187,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income3 = new TransactionDto();
         income3.setUserId(user2.getId());
-        income3.setCategoryId(salaryCategory.getId());
+        income3.setCategoryName(salaryCategory.getName());
         income3.setAmount(4500.00);
         income3.setType("Przychody");
         income3.setDescription("Wynagrodzenie za pracę");
@@ -196,7 +196,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income4 = new TransactionDto();
         income4.setUserId(user2.getId());
-        income4.setCategoryId(freelanceCategory.getId());
+        income4.setCategoryName(freelanceCategory.getName());
         income4.setAmount(1200.00);
         income4.setType("Przychody");
         income4.setDescription("Projekt freelance - aplikacja mobilna");
@@ -205,7 +205,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income5 = new TransactionDto();
         income5.setUserId(user3.getId());
-        income5.setCategoryId(salaryCategory.getId());
+        income5.setCategoryName(salaryCategory.getName());
         income5.setAmount(4800.00);
         income5.setType("Przychody");
         income5.setDescription("Wynagrodzenie za pracę");
@@ -214,7 +214,7 @@ public class DataInitializer implements CommandLineRunner {
 
         TransactionDto income6 = new TransactionDto();
         income6.setUserId(user3.getId());
-        income6.setCategoryId(freelanceCategory.getId());
+        income6.setCategoryName(freelanceCategory.getName());
         income6.setAmount(600.00);
         income6.setType("Przychody");
         income6.setDescription("Projekt freelance - grafika");

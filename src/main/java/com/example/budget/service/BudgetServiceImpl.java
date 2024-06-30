@@ -28,7 +28,7 @@ public class BudgetServiceImpl implements BudgetService {
     @Override
     public BudgetDto createBudget(BudgetDto budgetDto) {
         Optional<User> user = userRepository.findById(budgetDto.getUserId());
-        Optional<PaymentCategory> category = paymentCategoryRepository.findById(budgetDto.getCategoryId());
+        Optional<PaymentCategory> category = paymentCategoryRepository.findByNameIgnoreCase(budgetDto.getCategoryName());
 
         if (user.isPresent() && category.isPresent()) {
             Budget budget = Budget.builder()
@@ -49,16 +49,24 @@ public class BudgetServiceImpl implements BudgetService {
 
         if (existingBudget.isPresent()) {
             Budget budget = existingBudget.get();
-            budget.setLimitAmount(budgetDto.getLimitAmount());
-
-            Optional<User> user = userRepository.findById(budgetDto.getUserId());
-            Optional<PaymentCategory> category = paymentCategoryRepository.findById(budgetDto.getCategoryId());
-
-            if (user.isPresent() && category.isPresent()) {
-                budget.setUser(user.get());
-                budget.setCategory(category.get());
-            } else {
-                throw new RuntimeException("User or Category not found");
+            if (budgetDto.getLimitAmount() != null) {
+                budget.setLimitAmount(budgetDto.getLimitAmount());
+            }
+            if (budgetDto.getUserId() != null) {
+                Optional<User> user = userRepository.findById(budgetDto.getUserId());
+                if (user.isPresent()) {
+                    budget.setUser(user.get());
+                } else {
+                    throw new RuntimeException("User not found");
+                }
+            }
+            if (budgetDto.getCategoryName() != null) {
+                Optional<PaymentCategory> category = paymentCategoryRepository.findByNameIgnoreCase(budgetDto.getCategoryName());
+                if (category.isPresent()) {
+                    budget.setCategory(category.get());
+                } else {
+                    throw new RuntimeException("Category not found");
+                }
             }
 
             Budget updatedBudget = budgetRepository.save(budget);
