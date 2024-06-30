@@ -227,22 +227,25 @@ public class DataInitializer implements CommandLineRunner {
         goal1.setCurrentValue(1000.00);
         goal1.setTargetAmount(3000.00);
         goal1.setTargetDate(LocalDate.now().plusMonths(6));
+        goal1.setDescription("Wakacje all inclusive pod koniec roku");
         goalService.createGoal(goal1);
 
         GoalDto goal2 = new GoalDto();
-        goal2.setUserId(user2.getId());
+        goal2.setUserId(user1.getId());
         goal2.setName("iPhone 16");
         goal2.setCurrentValue(2500.00);
         goal2.setTargetAmount(4500.00);
         goal2.setTargetDate(LocalDate.now().plusMonths(12));
+        goal2.setDescription("We wrześniu decyduje się na najnowszy model iPhone'a");
         goalService.createGoal(goal2);
 
         GoalDto goal3 = new GoalDto();
-        goal3.setUserId(user2.getId());
+        goal3.setUserId(user1.getId());
         goal3.setName("DJI Mini 4 PRO");
         goal3.setCurrentValue(500.00);
         goal3.setTargetAmount(4000.00);
         goal3.setTargetDate(LocalDate.now().plusMonths(3));
+        goal3.setDescription("Kupuję drona do końca roku i robię licencję");
         goalService.createGoal(goal3);
     }
 }

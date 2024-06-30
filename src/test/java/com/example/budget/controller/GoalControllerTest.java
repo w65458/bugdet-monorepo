@@ -46,8 +46,9 @@ class GoalControllerTest {
         goalDto = new GoalDto();
         goalDto.setId(1L);
         goalDto.setUserId(1L);
-        goalDto.setName("Save for a car");
+        goalDto.setName("Car");
         goalDto.setTargetAmount(10000.0);
+        goalDto.setDescription("Save for a car");
     }
 
     @Test

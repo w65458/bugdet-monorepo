@@ -46,4 +46,6 @@ public class Goal {
     @Column(nullable = false)
     private LocalDate targetDate;
 
+    @Column(nullable = true)
+    private String description;
 }

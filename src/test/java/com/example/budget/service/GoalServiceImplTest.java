@@ -42,9 +42,10 @@ class GoalServiceImplTest {
     void setUp() {
         goalDto = new GoalDto();
         goalDto.setUserId(1L);
-        goalDto.setName("Buy a car");
+        goalDto.setName("Car");
         goalDto.setTargetAmount(15000.0);
         goalDto.setTargetDate(LocalDate.of(2024, 12, 31));
+        goalDto.setDescription("Save for a car to the end of the year");
 
         user = new User();
         user.setId(1L);
@@ -52,9 +53,10 @@ class GoalServiceImplTest {
         goal = new Goal();
         goal.setId(1L);
         goal.setUser(user);
-        goal.setName("Buy a car");
+        goal.setName("Car");
         goal.setTargetAmount(15000.0);
         goal.setTargetDate(LocalDate.of(2024, 12, 31));
+        goal.setDescription("Save for a car to the end of the year");
     }
 
     @Test

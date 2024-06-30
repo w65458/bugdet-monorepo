@@ -31,6 +31,7 @@ public class GoalServiceImpl implements GoalService {
                     .currentValue(goalDto.getCurrentValue())
                     .targetAmount(goalDto.getTargetAmount())
                     .targetDate(goalDto.getTargetDate())
+                    .description(goalDto.getDescription())
                     .build();
             Goal savedGoal = goalRepository.save(goal);
             return GoalMapper.INSTANCE.goalToGoalDto(savedGoal);
@@ -55,6 +56,9 @@ public class GoalServiceImpl implements GoalService {
             }
             if (goalDto.getTargetDate() != null) {
                 goal.setTargetDate(goalDto.getTargetDate());
+            }
+            if (goalDto.getDescription() != null) {
+                goal.setDescription(goalDto.getDescription());
             }
             if (goalDto.getUserId() != null) {
                 Optional<User> user = userRepository.findById(goalDto.getUserId());

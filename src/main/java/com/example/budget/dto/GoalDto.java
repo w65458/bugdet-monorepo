@@ -23,4 +23,6 @@ public class GoalDto {
     private Double targetAmount;
     @JsonProperty
     private LocalDate targetDate;
+    @JsonProperty
+    private String description;
 }
