@@ -103,34 +103,38 @@ export const Expenses = () => {
     return (
         <PageTemplate>
             <div className="relative flex flex-col grow">
-                <div className="bg-blue-100 p-4 text-center flex items-center justify-center">
-                    <span className="text-black text-lg font-semibold">Całkowite wydatki</span>
-                    <span className="text-red-500 text-3xl font-semibold p-1 ml-2">${formattedTotalExpense}</span>
-                </div>
-                <div className="absolute top-4 right-4 flex items-center z-50">
-                    <CalendarIcon
-                        className="h-6 w-6 text-gray-600 cursor-pointer"
-                        onClick={() => datepickerRef.current.setFocus()}
-                    />
-                    <DatePicker
-                        ref={datepickerRef}
-                        selected={selectedMonth}
-                        onChange={(date) => setSelectedMonth(date)}
-                        dateFormat="MMMM yyyy"
-                        showMonthYearPicker
-                        locale="pl"
-                        className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
-                        customInput={
-                            <div className="flex items-center">
-                                <input
-                                    type="text"
-                                    value={formatDate(selectedMonth)}
-                                    readOnly
-                                    className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
-                                />
-                            </div>
-                        }
-                    />
+                <div className="relative bg-blue-100 p-6 rounded-lg shadow-lg mb-8 flex items-center justify-between">
+                    <div>
+                        <h2 className="text-3xl font-bold mb-4 text-left">Całkowite wydatki</h2>
+                        <div className="text-black text-lg font-semibold">
+                            <span className="text-red-500 text-3xl font-semibold p-1">${formattedTotalExpense}</span>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <CalendarIcon
+                            className="h-6 w-6 text-gray-600 cursor-pointer"
+                            onClick={() => datepickerRef.current.setFocus()}
+                        />
+                        <DatePicker
+                            ref={datepickerRef}
+                            selected={selectedMonth}
+                            onChange={(date) => setSelectedMonth(date)}
+                            dateFormat="MMMM yyyy"
+                            showMonthYearPicker
+                            locale="pl"
+                            className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                            customInput={
+                                <div className="flex items-center">
+                                    <input
+                                        type="text"
+                                        value={formatDate(selectedMonth)}
+                                        readOnly
+                                        className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                                    />
+                                </div>
+                            }
+                        />
+                    </div>
                 </div>
                 {showAlert && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
@@ -158,7 +162,7 @@ export const Expenses = () => {
                                     </div>
                                     <div>
                                         <Typography variant="h6" color="blue-gray">
-                                            Wykres liniowy
+                                            Wykres wydatków
                                         </Typography>
                                         <Typography
                                             variant="small"
@@ -182,7 +186,7 @@ export const Expenses = () => {
                                 <TransactionCard
                                     key={transaction.id}
                                     category={transaction.categoryId}
-                                    title={transaction.description}
+                                    title={transaction.name}
                                     amount={transaction.amount}
                                     date={transaction.transactionDate}
                                     description={transaction.description}
