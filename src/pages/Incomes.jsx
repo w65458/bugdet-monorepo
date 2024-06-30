@@ -1,15 +1,21 @@
+import React, { useEffect, useState, useRef } from "react";
+import axios from 'axios';
+import dayjs from 'dayjs';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { PageTemplate } from "../components/PageTemplate.jsx";
 import { TransactionForm } from "../components/TransactionForm.jsx";
 import { TransactionCard } from "../components/TransactionCard.jsx";
-import brainIcon from "../assets/images/brainstorm.png";
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import Chart from "react-apexcharts";
 import { Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
-import { BanknotesIcon } from "@heroicons/react/24/outline/index.js";
+import { BanknotesIcon, CalendarIcon } from "@heroicons/react/24/outline"; // Importowanie ikony kalendarza
 import chartConfig from "../config/chartIncomesConfig.js";
-import dayjs from "dayjs";
+import pl from 'date-fns/locale/pl';
+import 'dayjs/locale/pl';
 import numeral from "numeral";
+
+dayjs.locale('pl');
+registerLocale('pl', pl);
 
 export const Incomes = () => {
     const [transactions, setTransactions] = useState([]);
@@ -18,17 +24,20 @@ export const Incomes = () => {
         categories: [],
         series: [{ name: 'Przychody', data: [] }],
     });
-
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
+    const datepickerRef = useRef(null);
     const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
-        fetchTransactions();
-    }, []);
+        fetchTransactions(dayjs(selectedMonth).format('YYYY-MM'));
+    }, [selectedMonth]);
 
-    const fetchTransactions = async () => {
+    const fetchTransactions = async (month) => {
         try {
             const response = await axios.get('/api/transactions/1');
-            const incomes = response.data.filter(transaction => transaction.type === 'Przychody');
+            const incomes = response.data.filter(transaction =>
+                transaction.type === 'Przychody' && dayjs(transaction.transactionDate).format('YYYY-MM') === month
+            );
             setTransactions(incomes);
             const total = incomes.reduce((acc, transaction) => acc + transaction.amount, 0);
             setTotalIncome(total);
@@ -46,18 +55,21 @@ export const Incomes = () => {
     };
 
     const handleAddTransaction = (newTransaction) => {
-        setTransactions(prevTransactions => [newTransaction, ...prevTransactions]);
-        setTotalIncome(prevTotal => prevTotal + newTransaction.amount);
+        const month = dayjs(selectedMonth).format('YYYY-MM');
+        if (dayjs(newTransaction.transactionDate).format('YYYY-MM') === month) {
+            setTransactions(prevTransactions => [newTransaction, ...prevTransactions]);
+            setTotalIncome(prevTotal => prevTotal + newTransaction.amount);
 
-        setChartData(prevChartData => {
-            const newDates = [dayjs(newTransaction.transactionDate).format('YYYY-MM-DD'), ...prevChartData.categories];
-            const newAmounts = [newTransaction.amount, ...prevChartData.series[0].data];
+            setChartData(prevChartData => {
+                const newDates = [dayjs(newTransaction.transactionDate).format('YYYY-MM-DD'), ...prevChartData.categories];
+                const newAmounts = [newTransaction.amount, ...prevChartData.series[0].data];
 
-            return {
-                categories: newDates,
-                series: [{ name: 'Przychody', data: newAmounts }]
-            };
-        });
+                return {
+                    categories: newDates,
+                    series: [{ name: 'Przychody', data: newAmounts }]
+                };
+            });
+        }
 
         setShowAlert(true);
         setTimeout(() => {
@@ -78,18 +90,47 @@ export const Incomes = () => {
                 labels: {
                     rotate: -45,
                     rotateAlways: true,
-                    formatter: (value) => dayjs(value).format('MMM D, YYYY'),
+                    formatter: (value) => dayjs(value).format('D MMM'),
                 },
             },
         },
     };
 
+    const formatDate = (date) => {
+        return dayjs(date).format('MMMM YYYY');
+    };
+
     return (
         <PageTemplate>
-            <div className="flex flex-col grow">
+            <div className="relative flex flex-col grow">
                 <div className="bg-blue-100 p-4 text-center flex items-center justify-center">
                     <span className="text-black text-lg font-semibold">Całkowite przychody</span>
                     <span className="text-green-500 text-3xl font-semibold p-1 ml-2">${formattedTotalIncome}</span>
+                </div>
+                <div className="absolute top-4 right-4 flex items-center z-50">
+                    <CalendarIcon
+                        className="h-6 w-6 text-gray-600 cursor-pointer"
+                        onClick={() => datepickerRef.current.setFocus()}
+                    />
+                    <DatePicker
+                        ref={datepickerRef}
+                        selected={selectedMonth}
+                        onChange={(date) => setSelectedMonth(date)}
+                        dateFormat="MMMM yyyy"
+                        showMonthYearPicker
+                        locale="pl"
+                        className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                        customInput={
+                            <div className="flex items-center">
+                                <input
+                                    type="text"
+                                    value={formatDate(selectedMonth)}
+                                    readOnly
+                                    className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                                />
+                            </div>
+                        }
+                    />
                 </div>
                 {showAlert && (
                     <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
@@ -140,7 +181,7 @@ export const Incomes = () => {
                             {transactions.map((transaction) => (
                                 <TransactionCard
                                     key={transaction.id}
-                                    category_icon={brainIcon}
+                                    category={transaction.categoryId}
                                     title={transaction.description}
                                     amount={transaction.amount}
                                     date={transaction.transactionDate}
