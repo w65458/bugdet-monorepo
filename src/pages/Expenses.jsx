@@ -124,7 +124,7 @@ export const Expenses = () => {
                                     type="text"
                                     value={formatDate(selectedMonth)}
                                     readOnly
-                                    className="p-2 border w-24 border-gray-300 rounded-md shadow-sm"
+                                    className="p-2 border w-32 border-gray-300 rounded-md shadow-sm"
                                 />
                             </div>
                         }

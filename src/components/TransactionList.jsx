@@ -43,19 +43,19 @@ export const TransactionList = ({ selectedMonth }) => {
                 <h2 className="text-2xl font-bold">{showAll ? 'Wszystkie' : transactionType}</h2>
                 <div className="space-x-2 flex-wrap">
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Przychody')}
                     >
                         Przychody
                     </button>
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Wydatki' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wydatki')}
                     >
                         Wydatki
                     </button>
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={handleShowAllChange}
                     >
                         Wszystkie

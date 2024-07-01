@@ -98,11 +98,18 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
         },
         grid: {
             padding: {
-                top: -20,
-                bottom: -20
+                top: -10,
+                bottom: -10,
+                left: 0,
+                right: 0
             }
         },
         colors: ['green', 'red'],
+        legend: {
+            position: 'bottom', 
+            horizontalAlign: 'center', 
+            offsetY: -70,
+        },
     };
 
     return (
@@ -111,19 +118,19 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 <h2 className="w-full text-center text-2xl font-bold">Transakcje według kategorii</h2>
                 <div className="flex w-full items-center justify-center place-items-center gap-2">
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Przychody')}
                     >
                         Przychody
                     </button>
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wydatki')}
                     >
                         Wydatki
                     </button>
                     <button
-                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2  rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wszystkie')}
                     >
                         Wszystkie
