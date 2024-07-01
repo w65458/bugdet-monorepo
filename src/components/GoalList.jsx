@@ -29,8 +29,8 @@ export const GoalList = () => {
                             <span className="text-lg font-semibold">{goal.name}</span>
                         </div>
                         <div className="mt-2">
-                            <Progress value={(goal.amount / goal.targetAmount) * 100} />
-                            <div className="text-sm text-gray-600 mt-1">{`${goal.amount} / ${goal.targetAmount}`}</div>
+                            <Progress value={(goal.currentValue / goal.targetAmount) * 100} />
+                            <div className="text-sm text-gray-600 mt-1">{`${goal.currentValue} / ${goal.targetAmount} PLN`}</div>
                         </div>
                     </li>
                 ))}
