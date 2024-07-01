@@ -46,7 +46,7 @@ export const MainPanel = () => {
                                         type="text"
                                         value={formatDate(selectedMonth)}
                                         readOnly
-                                        className="p-2 border w-24 border-gray-300 rounded-md shadow-sm"
+                                        className="p-2 border w-40 border-gray-300 rounded-md shadow-sm"
                                     />
                                 </div>
                             }
@@ -55,19 +55,23 @@ export const MainPanel = () => {
                     <h2 className="invisible text-md md:text-3xl font-bold text-left">Budżet</h2>
                 </div>
                 <BudgetOverview selectedMonth={selectedMonth} />
-                <div className="flex-grow overflow-y-auto">
-                    <div className="flex flex-wrap gap-4 h-full">
-                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 xl:h-full overflow-hidden">
-                            <TransactionRadarChart selectedMonth={selectedMonth} />
+                <div className="flex-grow overflow-y-auto w-full scrollbar-none">
+                    <div className="h-auto flex gap-4 md:gap-0 flex-wrap lg:flex-nowrap lg:h-full w-full">
+                        <div className="h-auto flex gap-4 md:gap-0 flex-wrap w-full lg:w-1/2 xl:w-1/2 xl:h-full">
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-auto lg:h-full overflow-hidden">
+                                <TransactionRadarChart selectedMonth={selectedMonth} />
+                            </div>
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-[400px] lg:h-full overflow-y-auto">
+                                <TransactionList selectedMonth={selectedMonth} />
+                            </div>
                         </div>
-                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 h-[300px] xl:h-full overflow-y-auto">
-                            <TransactionList selectedMonth={selectedMonth} />
-                        </div>
-                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 h-[300px] xl:h-full overflow-y-auto">
-                            <ReportsOverview selectedMonth={selectedMonth} />
-                        </div>
-                        <div className="min-w-[300px] md:w-1/2 2xl:flex-1 h-[300px] xl:h-full overflow-y-auto">
-                            <GoalList />
+                        <div className="flex flex-wrap gap-4 md:gap-0 w-full lg:w-1/2 xl:w-1/2 h-full">
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-[600px] lg:h-full overflow-y-auto">
+                                <ReportsOverview selectedMonth={selectedMonth} />
+                            </div>
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-96 lg:h-full overflow-y-auto">
+                                <GoalList />
+                            </div>
                         </div>
                     </div>
                 </div>
