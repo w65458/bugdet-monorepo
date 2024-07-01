@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) => {
     const [name, setName] = useState('');
-    const [categoryId, setCategoryId] = useState('');
+    const [categoryName, setCategoryName] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [amount, setAmount] = useState('');
@@ -22,7 +22,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
         if (!date) newErrors.date = 'Pole data jest wymagane';
         if (!amount) newErrors.amount = 'Pole kwota jest wymagane';
         if (description.length > 150) newErrors.description = 'Pole opis może mieć maksymalnie 150 znaków';
-        if (!categoryId) newErrors.category = 'Pole kategoria jest wymagane';
+        if (!categoryName) newErrors.category = 'Pole kategoria jest wymagane';
 
         setErrors(newErrors);
 
@@ -30,7 +30,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
             try {
                 const response = await axios.post('/api/transactions', {
                     userId, // Assuming userId is passed as a prop
-                    categoryId: parseInt(categoryId), // Ensure categoryId is an integer
+                    categoryName, // Sending categoryName as a string
                     amount: parseFloat(amount), // Ensure amount is sent as a number
                     type: transaction_name,
                     description,
@@ -43,7 +43,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                 }
                 // Optionally, reset the form
                 setName('');
-                setCategoryId('');
+                setCategoryName('');
                 setDescription('');
                 setDate('');
                 setAmount('');
@@ -77,16 +77,16 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                     </label>
                     <select
                         id="category"
-                        value={categoryId}
-                        onChange={(e) => setCategoryId(e.target.value)}
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="">Wybierz kategorię</option>
-                        <option value="1">Jedzenie</option>
-                        <option value="2">Transport</option>
-                        <option value="3">Rozrywka</option>
-                        <option value="4">Rachunki</option>
-                        <option value="5">Inne</option>
+                        <option value="Jedzenie">Jedzenie</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Rozrywka">Rozrywka</option>
+                        <option value="Rachunki">Rachunki</option>
+                        <option value="Inne">Inne</option>
                     </select>
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
                 </div>
