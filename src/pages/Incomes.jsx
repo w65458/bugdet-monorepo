@@ -104,7 +104,7 @@ export const Incomes = () => {
         <PageTemplate>
             <div className="h-full w-full flex flex-col overflow-auto scrollbar-none">
                 <div className="w-full bg-blue-100 rounded-lg shadow-lg flex items-center justify-center place-items-center p-2">
-                    <h2 className="text-md md:text-3xl font-bold text-left">Całkowite przychody</h2>
+                    <h2 className="text-lg md:text-3xl font-bold text-left">Całkowite przychody</h2>
                     <div className="grow flex gap-2 items-center justify-center place-items-center">
                         <CalendarIcon
                             className="h-0 w-0 md:h-6 md:w-6 text-gray-600 cursor-pointer"
@@ -138,17 +138,17 @@ export const Incomes = () => {
                         <span className="block sm:inline"> Przychód został dodany.</span>
                     </div>
                 )}
-                <div className="flex flex-grow flex-wrap xl:flex-nowrap px-0 md:px-2 p-2 gap-2 bg-gray-100 w-full overflow-auto scrollbar-none xl:overflow-hidden">
-                    <div className="flex flex-col h-auto md:h-full w-full md:w-1/2 xl:w-1/3 min-w-[320px] md:min-w-[350px] bg-blue-100 p-4 rounded-md">
+                <div className="flex flex-grow flex-wrap 2xl:flex-nowrap px-0 md:px-2 p-2 gap-2 bg-gray-100 w-full overflow-auto scrollbar-none 2xl:overflow-hidden">
+                    <div className="flex flex-col h-auto md:h-full w-full md:w-1/2 2xl:w-1/3 min-w-[320px] md:min-w-[350px] bg-blue-100 p-4 rounded-md">
                         <h2 className="text-blue-600 text-2xl bg-blue-100 p-2">Dodaj nowy przychód</h2>
-                        <div className="flex h-full w-full">
+                        <div className="flex h-full w-full items-center justify-center place-items-center">
                             <TransactionForm transaction_name="Przychody" userId={1} onAddTransaction={handleAddTransaction} />
                         </div>
                     </div>
                     <div className="flex-1 w-full h-auto md:h-full md:w-1/2 min-w-[320px] md:min-w-[350px] bg-blue-100 p-4 rounded-md">
                     <h2 className="text-blue-600 text-2xl bg-blue-100 p-2">Wykres przychodów</h2>
-                        <div className="flex flex-col w-full">
-                            <Card className='w-full rounded-lg'>
+                    <div className="flex flex-col w-full items-center place-content-center justify-center">
+                            <Card className='md:mt-5 xl:mt-10 w-full rounded-lg h-[500px]'>
                                 <CardHeader
                                     floated={false}
                                     shadow={false}
@@ -171,15 +171,17 @@ export const Incomes = () => {
                                         </Typography>
                                     </div>
                                 </CardHeader>
-                                <CardBody className="px-4 pb-0">
-                                    <Chart {...customChartConfig} />
+                                <CardBody className="px-4 pb-0 h-full">
+                                    <div className="w-full h-full">
+                                    <Chart {...customChartConfig} height="100%"/>
+                                    </div>
                                 </CardBody>
                             </Card>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full xl:w-1/3 min-w-[320px] md:min-w-[500px] bg-blue-100 p-4 rounded-md h-full xl:h-auto md:overflow-y-auto scrollbar-none max-h-[400px] xl:max-h-full">
+                    <div className="flex flex-col w-full 2xl:w-1/3 min-w-[320px] md:min-w-[500px] bg-blue-100 p-4 rounded-md h-full 2xl:h-auto md:overflow-y-auto scrollbar-none max-h-[400px] 2xl:max-h-full">
                         <h2 className="text-blue-600 text-2xl bg-blue-100 p-2">Historia przychodów</h2>
-                        <div className="gap-2 pr-2 w-full overflow-y-auto scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 flex flex-col h-full xl:max-h-full">
+                        <div className="gap-2 pr-2 w-full overflow-y-auto scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 flex flex-col h-full 2xl:max-h-full">
                             {transactions.map((transaction) => (
                                 <TransactionCard
                                     key={transaction.id}

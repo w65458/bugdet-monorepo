@@ -22,7 +22,7 @@ export const GoalList = () => {
     return (
         <div className="flex flex-col gap-2 bg-blue-100 p-2 shadow-lg h-full">
             <h2 className="text-2xl font-bold">Cele</h2>
-            <ul className="flex flex-col gap-2 overflow-y-auto scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full">
+            <ul className="flex flex-col gap-2 overflow-y-auto scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full">
                 {goals.map(goal => (
                     <li key={goal.id} className="bg-white p-4 mr-2 rounded-lg shadow-md">
                         <div className="flex justify-between items-center">

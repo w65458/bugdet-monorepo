@@ -101,7 +101,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
                         placeholder="Wpisz opis (max 30 znaków)"
                         maxLength="30"
-                        rows="1"
+                        rows="3"
                     />
                     {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
                 </div>

@@ -40,7 +40,7 @@ export const TransactionList = ({ selectedMonth }) => {
     return (
         <div className="flex flex-col h-full bg-blue-100 gap-2 shadow-lg">
             <h2 className="text-2xl font-bold text-left p-2">{showAll ? 'Wszystkie' : transactionType}</h2>
-            <div className="flex flex-col justify-between p-2 gap-2 items-center">
+            <div className="flex flex-col justify-between p-2 gap-10 items-center">
                 <div className="space-x-2 flex-wrap">
                     <button
                         className={`p-2 rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
@@ -72,7 +72,7 @@ export const TransactionList = ({ selectedMonth }) => {
                         </tr>
                     </thead>
                 </table>
-                <div className="pt-0 flex flex-col gap-2 scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
+                <div className="pt-0 flex flex-col gap-2 scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
                     <table className="flex flex-col w-full">
                         <tbody>
                         {transactions.map(transaction => (

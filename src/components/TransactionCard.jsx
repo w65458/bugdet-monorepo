@@ -42,7 +42,7 @@ export const TransactionCard = ({ category_icon, title, amount, date, descriptio
             </div>
             <div className="flex flex-col items-end p-2 gap-2">
                 <p className={`text-xs sm:text-sm md:text-base lg:text-lg font-semibold ${amount_color}`}>${amount}</p>
-                <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg">{date}</p>
+                <p className="text-gray-500 w-[93px] text-xs sm:text-sm md:text-base lg:text-lg">{date}</p>
             </div>
         </div>
     );

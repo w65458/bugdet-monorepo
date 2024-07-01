@@ -55,7 +55,7 @@ export const ReportsOverview = ({ selectedMonth }) => {
                 <h2 className="grow text-2xl font-bold">Podgląd Raportu</h2>
             </div>
             {reportPreview && (
-                <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg relative m-1 mt-0 overflow-hidden">
+                <div className="flex flex-col p-4 bg-white rounded-lg relative m-2 mt-0 overflow-hidden">
                     <table className="w-full border border-black bg-white">
                         <thead>
                         <tr>
@@ -84,7 +84,7 @@ export const ReportsOverview = ({ selectedMonth }) => {
                             </tr>
                         </thead>
                     </table>
-                    <div className="pt-0 flex flex-col gap-2 scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
+                    <div className="pt-0 flex flex-col gap-2 scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
                         <table className="w-full bg-white">
                             <tbody className='flex flex-col w-full bg-white'>
                             {reportPreview.transactions.map((transaction, index) => (

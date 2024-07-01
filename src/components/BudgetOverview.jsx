@@ -38,7 +38,7 @@ export const BudgetOverview = ({ selectedMonth }) => {
 
     return (
         <div className="flex w-full bg-blue-100 p-2 rounded-lg">
-            <div className="grow flex flex-col md:flex-row justify-around">
+            <div className="grow flex flex-row justify-around">
                 <div className="text-center">
                     <h3 className="text-xl font-bold">Saldo</h3>
                     <p className={`text-2xl ${budgetState.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
