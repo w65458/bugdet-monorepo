@@ -55,10 +55,10 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
     };
 
     return (
-        <div className="p-2">
+        <div className="p-2 flex flex-col w-full">
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                    <label className="block text-gray-700 text-sm font-bold" htmlFor="name">
                         Nazwa
                     </label>
                     <input
@@ -72,7 +72,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                     {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+                    <label className="block text-gray-700 text-sm font-bold" htmlFor="category">
                         Kategoria
                     </label>
                     <select
@@ -91,7 +91,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                    <label className="block text-gray-700 text-sm font-bold" htmlFor="description">
                         Opis
                     </label>
                     <textarea
@@ -99,14 +99,14 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
-                        placeholder="Wpisz opis (max 150 znaków)"
-                        maxLength="150"
-                        rows="5"
+                        placeholder="Wpisz opis (max 30 znaków)"
+                        maxLength="30"
+                        rows="1"
                     />
                     {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
+                    <label className="block text-gray-700 text-sm font-bold" htmlFor="date">
                         Data
                     </label>
                     <input
@@ -119,16 +119,22 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                     {errors.date && <p className="text-red-500 text-xs italic">{errors.date}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+                    <label className="block text-gray-700 text-sm font-bold" htmlFor="amount">
                         Kwota
                     </label>
                     <input
                         id="amount"
                         type="number"
                         value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value.length <= 7) {
+                                setAmount(value);
+                            }
+                        }}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Wpisz kwotę"
+                        max={9999999}
                     />
                     {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
                 </div>

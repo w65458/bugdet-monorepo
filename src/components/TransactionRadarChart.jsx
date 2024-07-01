@@ -102,37 +102,37 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 bottom: -20
             }
         },
-        colors: ['green', 'red'], // Colors for the series
+        colors: ['green', 'red'],
     };
 
     return (
-        <div className="flex flex-col h-full bg-blue-100 p-4 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Transakcje według kategorii</h2>
-                <div className="space-x-2 flex-wrap">
+        <div className="flex flex-col h-full bg-blue-100 shadow-lg">
+            <div className="flex flex-col justify-between p-2 gap-2 items-center w-full">
+                <h2 className="w-full text-center text-2xl font-bold">Transakcje według kategorii</h2>
+                <div className="flex w-full items-center justify-center place-items-center gap-2">
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Przychody')}
                     >
                         Przychody
                     </button>
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wydatki')}
                     >
                         Wydatki
                     </button>
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wszystkie')}
                     >
                         Wszystkie
                     </button>
                 </div>
             </div>
-            <div className="flex-1">
-                <Chart options={chartOptions} series={chartData.series} type="radar" height="100%" />
-            </div>
+                <div>
+                    <Chart options={chartOptions} series={chartData.series} type="radar"/>
+                </div>
         </div>
     );
 };

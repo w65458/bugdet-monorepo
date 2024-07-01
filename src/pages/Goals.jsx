@@ -71,19 +71,19 @@ export const Goals = () => {
 
   return (
       <PageTemplate>
-        <div className="flex flex-col bg-gray-100">
-          <div className="bg-blue-100 p-4 text-center flex items-center justify-between">
-            <h2 className="text-center text-black text-lg font-semibold">Twoje Cele</h2>
+        <div className="flex flex-col bg-gray-100 w-full h-full">
+          <div className="bg-blue-100 p-2 h-[60px] text-center flex items-center justify-between w-full">
+            <h2 className="text-center text-black text-3xl font-bold">Twoje Cele</h2>
             <button onClick={openAddGoalForm} className="bg-blue-500 text-white px-4 py-2 rounded">Dodaj Cel</button>
           </div>
-          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-100 overflow-y-auto custom-scrollbar flex-col" style={{ maxHeight: '710px' }}>
+          <div className="h-auto p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-100 overflow-y-auto scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 flex-col" style={{ maxHeight: '710px' }}>
             {goals.map((goal) => (
                 <GoalCard
                     key={goal.id}
                     id={goal.id}
                     name={goal.name}
                     description={goal.description || "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."}
-                    amount={goal.amount || 0} // Update as per your data structure
+                    amount={goal.amount || 0}
                     goal={goal.targetAmount}
                     onDonateClick={() => openDonateForm(goal.name)}
                     onEditClick={() => openEditGoalForm(goal.id)}

@@ -50,72 +50,59 @@ export const ReportsOverview = ({ selectedMonth }) => {
     };
 
     return (
-        <div className="flex flex-col h-full p-4 rounded-lg shadow-lg bg-blue-100">
-            <h2 className="text-2xl font-bold mb-4">Raporty</h2>
-            <div className="flex flex-wrap gap-2">
-                <button
-                    onClick={generateReport}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Podgląd raportu
-                </button>
-                {/*<button*/}
-                {/*    onClick={() => downloadReport('pdf')}*/}
-                {/*    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"*/}
-                {/*>*/}
-                {/*    Pobierz PDF*/}
-                {/*</button>*/}
-                {/*<button*/}
-                {/*    onClick={() => downloadReport('csv')}*/}
-                {/*    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"*/}
-                {/*>*/}
-                {/*    Pobierz CSV*/}
-                {/*</button>*/}
+        <div className="flex flex-col h-full gap-2 shadow-lg bg-blue-100 overflow-hidden">
+            <div className="flex gap-2 p-2 pb-0 items-center justify-center place-items-center ">
+                <h2 className="grow text-2xl font-bold">Raporty</h2>
+                <button onClick={generateReport} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Podgląd raportu</button>
             </div>
             {reportPreview && (
-                <div className="mt-6 p-4 bg-white rounded-lg shadow-lg relative">
+                <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg relative m-1 mt-0 overflow-hidden">
                     <button
                         onClick={handleCloseReportPreview}
                         className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                     >
                         &times;
                     </button>
-                    <h2 className="text-xl mb-4">Podgląd Raportu</h2>
-                    <table className="min-w-full bg-white">
+                    <h2 className="text-xl font-bold mb-4">Podgląd Raportu</h2>
+                    <table className="w-full border border-black bg-white">
                         <thead>
                         <tr>
-                            <th className="py-2 text-left">Miesiąc</th>
-                            <th className="py-2 text-left">Całkowity Dochód</th>
-                            <th className="py-2 text-left">Całkowite Wydatki</th>
+                            <th className="p-2 border border-black text-left">Miesiąc</th>
+                            <th className="p-2 border border-black text-left">Całkowity Dochód</th>
+                            <th className="p-2 border border-black text-left">Całkowite Wydatki</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody>    
                         <tr>
-                            <td className="py-2 text-left">{getMonthName(reportPreview.month)}</td>
-                            <td className="py-2 text-left">{reportPreview.totalIncome}</td>
-                            <td className="py-2 text-left">{reportPreview.totalExpense}</td>
+                            <td className="p-2 text-left border border-black">{getMonthName(reportPreview.month)}</td>
+                            <td className="p-2 text-center border border-black">{reportPreview.totalIncome}</td>
+                            <td className="p-2 text-center border border-black">{reportPreview.totalExpense}</td>
                         </tr>
                         </tbody>
                     </table>
-                    <h3 className="text-lg mt-4 mb-2">Transakcje</h3>
-                    <table className="min-w-full bg-white">
-                        <thead>
-                        <tr>
-                            <th className="py-2 text-left">Data</th>
-                            <th className="py-2 text-left">Opis</th>
-                            <th className="py-2 text-left">Kwota</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {reportPreview.transactions.map((transaction, index) => (
-                            <tr key={index}>
-                                <td className="py-2 text-left">{transaction.date || transaction.transactionDate}</td>
-                                <td className="py-2 text-left">{transaction.description}</td>
-                                <td className="py-2 text-left">{transaction.amount}</td>
+                    <h3 className="text-lg p-2 font-bold ">Transakcje</h3>
+                    <table className="flex w-full bg-white">
+                        <thead className='flex w-full bg-white'>
+                            <tr className='flex w-full bg-white border-b'>
+                                <th className="p-2 text-left min-w-[100px]">Data</th>
+                                <th className="grow p-2 text-left ">Opis</th>
+                                <th className="p-2 text-left min-w-[40px]">Kwota</th>
                             </tr>
-                        ))}
-                        </tbody>
+                        </thead>
                     </table>
+                    <div className="pt-0 flex flex-col gap-2 scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
+                        <table className="w-full bg-white">
+                            <tbody className='flex flex-col w-full bg-white'>
+                            {reportPreview.transactions.map((transaction, index) => (
+                                <tr key={index} className='flex flex-row w-full bg-white border-b'>
+                                    <td className="p-2 text-left min-w-[100px]">{transaction.date || transaction.transactionDate}</td>
+                                    <td className="grow p-2 text-left">{transaction.description}</td>
+                                    <td className="p-2 text-left min-w-[40px]">{transaction.amount}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>

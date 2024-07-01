@@ -9,8 +9,8 @@ import { TransactionRadarChart } from "../components/TransactionRadarChart.jsx";
 import { TransactionList } from "../components/TransactionList.jsx";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import pl from 'date-fns/locale/pl';
-import {ReportsOverview} from "../components/ReportsOverview.jsx";
-import {GoalList} from "../components/GoalList.jsx";
+import { ReportsOverview } from "../components/ReportsOverview.jsx";
+import { GoalList } from "../components/GoalList.jsx";
 
 registerLocale('pl', pl);
 
@@ -24,12 +24,12 @@ export const MainPanel = () => {
 
     return (
         <PageTemplate>
-            <div className="container mx-auto p-4">
-                <div className="relative bg-blue-100 p-6 rounded-lg shadow-lg mb-8">
-                    <h2 className="text-3xl font-bold mb-4 text-left">MyMoneyApp</h2>
-                    <div className="absolute top-4 right-4 flex items-center">
+            <div className="h-full w-full flex flex-col gap-4 overflow-hidden">
+                <div className="h-20 w-full bg-blue-100 rounded-lg flex items-center justify-center place-items-center p-2">
+                    <h2 className="text-md md:text-3xl font-bold text-left">Budżet</h2>
+                    <div className="grow flex gap-2 items-center justify-center place-items-center">
                         <CalendarIcon
-                            className="h-6 w-6 text-gray-600 cursor-pointer"
+                            className="h-0 w-0 md:h-6 md:w-6 text-gray-600 cursor-pointer"
                             onClick={() => datepickerRef.current.setFocus()}
                         />
                         <DatePicker
@@ -39,35 +39,36 @@ export const MainPanel = () => {
                             dateFormat="MMMM yyyy"
                             showMonthYearPicker
                             locale="pl"
-                            className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                            className="p-0 md:p-2 border-none md:border border-gray-300 rounded-md shadow-sm"
                             customInput={
                                 <div className="flex items-center">
                                     <input
                                         type="text"
                                         value={formatDate(selectedMonth)}
                                         readOnly
-                                        className="ml-2 p-2 border border-gray-300 rounded-md shadow-sm"
+                                        className="p-2 border w-24 border-gray-300 rounded-md shadow-sm"
                                     />
                                 </div>
                             }
                         />
                     </div>
+                    <h2 className="invisible text-md md:text-3xl font-bold text-left">Budżet</h2>
                 </div>
                 <BudgetOverview selectedMonth={selectedMonth} />
-                <div className="mt-8 flex flex-col md:flex-row gap-4">
-                    <div className="bg-blue-100 p-4 rounded-lg shadow-lg flex-1">
-                        <TransactionRadarChart selectedMonth={selectedMonth} />
-                    </div>
-                    <div className="bg-blue-100 p-4 rounded-lg shadow-lg flex-1">
-                        <TransactionList selectedMonth={selectedMonth} />
-                    </div>
-                </div>
-                <div className="mt-8 flex flex-col md:flex-row gap-4">
-                    <div className="bg-blue-100 p-4 rounded-lg shadow-lg flex-1">
-                        <ReportsOverview selectedMonth={selectedMonth} />
-                    </div>
-                    <div className="bg-blue-100 p-4 rounded-lg shadow-lg flex-1">
-                        <GoalList />
+                <div className="flex-grow overflow-y-auto">
+                    <div className="flex flex-wrap gap-4 h-full">
+                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 xl:h-full overflow-hidden">
+                            <TransactionRadarChart selectedMonth={selectedMonth} />
+                        </div>
+                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 h-[300px] xl:h-full overflow-y-auto">
+                            <TransactionList selectedMonth={selectedMonth} />
+                        </div>
+                        <div className="min-w-[300px] md:w-1/2 2xl:w-1/4 h-[300px] xl:h-full overflow-y-auto">
+                            <ReportsOverview selectedMonth={selectedMonth} />
+                        </div>
+                        <div className="min-w-[300px] md:w-1/2 2xl:flex-1 h-[300px] xl:h-full overflow-y-auto">
+                            <GoalList />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ export const TransactionList = ({ selectedMonth }) => {
                 filteredTransactions = filteredTransactions.filter(transaction => transaction.type === transactionType);
             }
 
-            setTransactions(filteredTransactions.slice(0, 8)); // Show only the latest 8 transactions
+            setTransactions(filteredTransactions.slice(0, 16));
         } catch (error) {
             console.error('Error fetching transactions:', error);
         }
@@ -38,51 +38,55 @@ export const TransactionList = ({ selectedMonth }) => {
     };
 
     return (
-        <div className="flex flex-col h-full p-4 bg-blue-100 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col h-full bg-blue-100 gap-2 shadow-lg">
+            <div className="flex flex-col justify-between p-2 gap-2 items-center">
                 <h2 className="text-2xl font-bold">{showAll ? 'Wszystkie' : transactionType}</h2>
                 <div className="space-x-2 flex-wrap">
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Przychody')}
                     >
                         Przychody
                     </button>
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' && !showAll ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${transactionType === 'Wydatki' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={() => handleTypeChange('Wydatki')}
                     >
                         Wydatki
                     </button>
                     <button
-                        className={`px-4 py-2 m-1 min-w-[100px] rounded-lg ${showAll ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                        className={`p-2 min-w-[100px] rounded-lg ${showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
                         onClick={handleShowAllChange}
                     >
                         Wszystkie
                     </button>
                 </div>
             </div>
-            <div className="flex-1 overflow-y-auto">
-                <table className="min-w-full bg-white rounded-lg">
+            <div className='p-2 pt-0 flex flex-col w-full h-full overflow-hidden'>
+                <table className="flex flex-col w-full">
                     <thead>
-                    <tr className="w-full bg-gray-100">
-                        <th className="py-2 px-4 text-left">Opis</th>
-                        <th className="py-2 px-4 text-left">Data</th>
-                        <th className="py-2 px-4 text-left">Koszt (PLN)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {transactions.map(transaction => (
-                        <tr key={transaction.id} className="border-t">
-                            <td className="py-2 px-4">{transaction.description}</td>
-                            <td className="py-2 px-4">{dayjs(transaction.transactionDate).format('D MMM YYYY')}</td>
-                            <td className={`py-2 px-4 ${transaction.type === 'Przychody' ? 'text-green-500' : 'text-red-500'}`}>
-                                {transaction.amount}
-                            </td>
+                        <tr className="flex flex-row gap-2 w-full bg-white border-b p-1">
+                            <th className="grow text-center">Opis</th>
+                            <th className="text-center min-w-[80px]">Data</th>
+                            <th className="text-center min-w-[100px]">Koszt (PLN)</th>
                         </tr>
-                    ))}
-                    </tbody>
+                    </thead>
                 </table>
+                <div className="pt-0 flex flex-col gap-2 scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
+                    <table className="flex flex-col w-full">
+                        <tbody>
+                        {transactions.map(transaction => (
+                            <tr key={transaction.id} className="flex flex-row gap-2 w-full bg-white p-1 border-b">
+                                <td className="grow text-left">{transaction.description}</td>
+                                <td className="text-center min-w-[80px]">{dayjs(transaction.transactionDate).format('D MMM YYYY')}</td>
+                                <td className={`text-center min-w-[100px] ${transaction.type === 'Przychody' ? 'text-green-500' : 'text-red-500'}`}>
+                                    {transaction.amount}
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

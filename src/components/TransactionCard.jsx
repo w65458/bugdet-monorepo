@@ -32,31 +32,18 @@ export const TransactionCard = ({ category_icon, title, amount, date, descriptio
     }, [menuOpen]);
 
     return (
-        <div className="flex items-center justify-between mb-2 p-4 bg-white shadow-md rounded-lg">
-            <div className="mr-6">
+        <div className="flex items-center p-4 bg-white shadow-md rounded-lg">
+            <div className="p-2">
                 {category}
             </div>
-            <div className="flex-1">
-                <div className="flex-1 mr-4">
-                    <h4 className="font-semibold text-xs md:text-base lg:text-lg">{title}</h4>
+            <div className="grow">
+                    <h4 className="font-semibold text-xs text-whitemd:text-base lg:text-lg">{title}</h4>
                     <p className="text-gray-500 text-xs md:text-base lg:text-lg">{description}</p>
-                </div>
             </div>
-            <div className="flex-1">
+            <div className="flex gap-4 p-2">
                 <p className={`text-xs sm:text-base md:text-base lg:text-lg font-semibold ${amount_color}`}>${amount}</p>
                 <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg">{date}</p>
             </div>
-            {/*<div className="hover:text-blue-600 p-2 flex-shrink-0" ref={buttonRef}>*/}
-            {/*    <button onClick={toggleMenu}><AdjustmentsHorizontalIcon className='h-6 w-6' /></button>*/}
-            {/*</div>*/}
-            {/*{menuOpen && (*/}
-            {/*    <div className="absolute bg-white rounded-md shadow-lg border mt-2 right-0" ref={menuRef}>*/}
-            {/*        <ul className='flex flex-col'>*/}
-            {/*            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-xs sm:text-sm md:text-base lg:text-lg"><button>Edit</button></li>*/}
-            {/*            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-xs sm:text-sm md:text-base lg:text-lg"><button>Delete</button></li>*/}
-            {/*        </ul>*/}
-            {/*    </div>*/}
-            {/*)}*/}
         </div>
     );
 };

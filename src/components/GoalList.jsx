@@ -4,7 +4,7 @@ import { Progress } from '@material-tailwind/react';
 
 export const GoalList = () => {
     const [goals, setGoals] = useState([]);
-    const userId = 1; // Replace with dynamic user ID as needed
+    const userId = 1;
 
     useEffect(() => {
         const fetchGoals = async () => {
@@ -19,14 +19,12 @@ export const GoalList = () => {
         fetchGoals();
     }, [userId]);
 
-
-
     return (
-        <div className="bg-blue-100 p-4 rounded-lg shadow-lg h-full">
-            <h2 className="text-2xl font-bold mb-4">Cele</h2>
-            <ul className="space-y-4">
+        <div className="flex flex-col gap-2 bg-blue-100 p-2 shadow-lg h-full">
+            <h2 className="text-2xl font-bold">Cele</h2>
+            <ul className="flex flex-col gap-2 overflow-y-auto scrollbar-none md:scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full">
                 {goals.map(goal => (
-                    <li key={goal.id} className="bg-white p-4 rounded-lg shadow-md">
+                    <li key={goal.id} className="bg-white p-4 mr-2 rounded-lg shadow-md">
                         <div className="flex justify-between items-center">
                             <span className="text-lg font-semibold">{goal.name}</span>
                         </div>
@@ -38,5 +36,5 @@ export const GoalList = () => {
                 ))}
             </ul>
         </div>
-    );
+    )
 };
