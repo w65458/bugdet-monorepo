@@ -158,8 +158,8 @@ export const Reports = () => {
                                 <tr className='flex w-full bg-white border-b'>
                                     <th className="p-2 text-left min-w-[100px]">Data</th>
                                     <th className="grow p-2 text-left ">Opis</th>
-                                    <th className="p-2 text-left min-w-[40px]">Kwota</th>
-                                    <th className="p-2 text-left min-w-[110px]">Typ</th>
+                                    <th className="p-2 text-left min-w-[65px]">Kwota</th>
+                                    <th className="p-2 text-left min-w-[86px]">Typ</th>
                                 </tr>
                             </thead>
                         </table>
@@ -171,7 +171,7 @@ export const Reports = () => {
                                         <td className="p-2 text-left min-w-[100px]">{transaction.date || transaction.transactionDate}</td>
                                         <td className="grow p-2 text-left">{transaction.description}</td>
                                         <td className="p-2 text-left min-w-[65px]">{transaction.amount}</td>
-                                        <td className="p-2 text-left min-w-[100px]">{transaction.type}</td>
+                                        <td className="p-2 text-left min-w-[80px]">{transaction.type}</td>
                                     </tr>
                                 ))}
                                 </tbody>

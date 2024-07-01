@@ -57,19 +57,19 @@ export const MainPanel = () => {
                 <BudgetOverview selectedMonth={selectedMonth} />
                 <div className="flex-grow overflow-y-auto w-full scrollbar-none">
                     <div className="h-auto flex gap-4 md:gap-0 flex-wrap lg:flex-nowrap lg:h-full w-full">
-                        <div className="h-auto flex gap-4 md:gap-0 flex-wrap w-full lg:w-1/2 xl:w-1/2 xl:h-full">
-                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-auto lg:h-full overflow-hidden">
+                        <div className="h-auto flex gap-4 md:gap-0 flex-wrap w-full 2xl:w-1/2 2xl:h-full">
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full 2xl:w-1/4 h-auto lg:h-full overflow-hidden">
                                 <TransactionRadarChart selectedMonth={selectedMonth} />
                             </div>
-                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-[400px] lg:h-full overflow-y-auto">
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full 2xl:w-1/4 h-[400px] lg:h-full overflow-y-auto">
                                 <TransactionList selectedMonth={selectedMonth} />
                             </div>
                         </div>
-                        <div className="flex flex-wrap gap-4 md:gap-0 w-full lg:w-1/2 xl:w-1/2 h-full">
-                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-[600px] lg:h-full overflow-y-auto">
+                        <div className="flex flex-wrap gap-4 md:gap-0 w-full 2xl:w-1/2 h-full">
+                            <div className="flex-grow m-2 mt-0 min-w-[405px] w-full 2xl:w-1/4 h-[600px] lg:h-full overflow-y-auto">
                                 <ReportsOverview selectedMonth={selectedMonth} />
                             </div>
-                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full lg:w-1/2 xl:w-1/4 h-96 lg:h-full overflow-y-auto">
+                            <div className="flex-grow m-2 mt-0 min-w-[300px] w-full 2xl:w-1/4 h-96 lg:h-full overflow-y-auto">
                                 <GoalList />
                             </div>
                         </div>

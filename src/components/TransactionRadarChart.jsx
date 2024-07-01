@@ -138,7 +138,7 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 </div>
             </div>
             <div className="flex-grow flex items-center justify-center">
-                <div className="w-full h-full max-w-[600px] max-h-[600px]">
+                <div className="w-full h-full" style={{ maxWidth:'800px', maxHeight:'800px' }}>
                     <Chart options={chartOptions} series={chartData.series} type="radar"/>
                 </div>
             </div>
