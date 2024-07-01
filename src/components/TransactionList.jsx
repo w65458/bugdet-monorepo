@@ -39,8 +39,8 @@ export const TransactionList = ({ selectedMonth }) => {
 
     return (
         <div className="flex flex-col h-full bg-blue-100 gap-2 shadow-lg">
+            <h2 className="text-2xl font-bold text-left p-2">{showAll ? 'Wszystkie' : transactionType}</h2>
             <div className="flex flex-col justify-between p-2 gap-2 items-center">
-                <h2 className="text-2xl font-bold">{showAll ? 'Wszystkie' : transactionType}</h2>
                 <div className="space-x-2 flex-wrap">
                     <button
                         className={`p-2 rounded-lg ${transactionType === 'Przychody' && !showAll ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}

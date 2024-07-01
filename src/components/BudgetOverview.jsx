@@ -40,18 +40,18 @@ export const BudgetOverview = ({ selectedMonth }) => {
         <div className="flex w-full bg-blue-100 p-2 rounded-lg">
             <div className="grow flex flex-col md:flex-row justify-around">
                 <div className="text-center">
+                    <h3 className="text-xl font-bold">Saldo</h3>
+                    <p className={`text-2xl ${budgetState.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        ${budgetState.balance}
+                    </p>
+                </div>
+                <div className="text-center">
                     <h3 className="text-xl font-bold">Przychody</h3>
                     <p className="text-2xl text-green-600">${budgetState.totalIncome}</p>
                 </div>
                 <div className="text-center">
                     <h3 className="text-xl font-bold">Wydatki</h3>
                     <p className="text-2xl text-red-600">${budgetState.totalExpenses}</p>
-                </div>
-                <div className="text-center">
-                    <h3 className="text-xl font-bold">Saldo</h3>
-                    <p className={`text-2xl ${budgetState.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        ${budgetState.balance}
-                    </p>
                 </div>
             </div>
         </div>

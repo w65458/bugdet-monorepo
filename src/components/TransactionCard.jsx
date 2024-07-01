@@ -33,17 +33,20 @@ export const TransactionCard = ({ category_icon, title, amount, date, descriptio
 
     return (
         <div className="flex items-center p-4 bg-white shadow-md rounded-lg">
-            <div className="p-2">
+            <div className="p-2" style={{ minWidth: '150px' }}>
                 {category}
             </div>
-            <div className="grow">
-                    <h4 className="font-semibold text-xs text-whitemd:text-base lg:text-lg">{title}</h4>
-                    <p className="text-gray-500 text-xs md:text-base lg:text-lg">{description}</p>
+            <div className="flex-grow p-2">
+                <h4 className="font-semibold text-xs sm:text-sm md:text-base lg:text-lg">{title}</h4>
+                <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg">{description}</p>
             </div>
-            <div className="flex gap-4 p-2">
-                <p className={`text-xs sm:text-base md:text-base lg:text-lg font-semibold ${amount_color}`}>${amount}</p>
+            <div className="flex flex-col items-end p-2 gap-2">
+                <p className={`text-xs sm:text-sm md:text-base lg:text-lg font-semibold ${amount_color}`}>${amount}</p>
                 <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg">{date}</p>
             </div>
         </div>
     );
+
+
+
 };

@@ -24,7 +24,7 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
 
             const categoryCountsIncomes = transactions.reduce((acc, transaction) => {
                 if (transaction.type === 'Przychody') {
-                    const category = transaction.categoryId;
+                    const category = transaction.categoryName;
                     acc[category] = (acc[category] || 0) + 1;
                 }
                 return acc;
@@ -32,7 +32,7 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
 
             const categoryCountsExpenses = transactions.reduce((acc, transaction) => {
                 if (transaction.type === 'Wydatki') {
-                    const category = transaction.categoryId;
+                    const category = transaction.categoryName;
                     acc[category] = (acc[category] || 0) + 1;
                 }
                 return acc;
@@ -41,10 +41,10 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
             const categories = Array.from(new Set([
                 ...Object.keys(categoryCountsIncomes),
                 ...Object.keys(categoryCountsExpenses)
-            ])).map(key => `Kategoria ${key}`);
+            ]));
 
-            const seriesDataIncomes = categories.map(category => categoryCountsIncomes[category.split(' ')[1]] || 0);
-            const seriesDataExpenses = categories.map(category => categoryCountsExpenses[category.split(' ')[1]] || 0);
+            const seriesDataIncomes = categories.map(category => categoryCountsIncomes[category] || 0);
+            const seriesDataExpenses = categories.map(category => categoryCountsExpenses[category] || 0);
 
             const newSeries = [];
             if (type !== 'Wydatki') {
@@ -106,16 +106,16 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
         },
         colors: ['green', 'red'],
         legend: {
-            position: 'bottom', 
-            horizontalAlign: 'center', 
-            offsetY: -70,
+            position: 'bottom',
+            horizontalAlign: 'center',
+            offsetY: -30,
         },
     };
 
     return (
         <div className="flex flex-col h-full bg-blue-100 shadow-lg">
             <div className="flex flex-col justify-between p-2 gap-2 items-center w-full">
-                <h2 className="w-full text-center text-2xl font-bold">Transakcje według kategorii</h2>
+                <h2 className="w-full text-left text-2xl font-bold">Transakcje według kategorii</h2>
                 <div className="flex w-full items-center justify-center place-items-center gap-2">
                     <button
                         className={`p-2 rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
@@ -137,9 +137,11 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                     </button>
                 </div>
             </div>
-                <div>
+            <div className="flex-grow flex items-center justify-center">
+                <div className="w-full h-full max-w-[600px] max-h-[600px]">
                     <Chart options={chartOptions} series={chartData.series} type="radar"/>
                 </div>
+            </div>
         </div>
     );
 };

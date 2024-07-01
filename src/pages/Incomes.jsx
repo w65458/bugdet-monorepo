@@ -183,7 +183,7 @@ export const Incomes = () => {
                             {transactions.map((transaction) => (
                                 <TransactionCard
                                     key={transaction.id}
-                                    category={transaction.categoryId}
+                                    category={transaction.categoryName}
                                     title={transaction.name}
                                     amount={transaction.amount}
                                     date={transaction.transactionDate}

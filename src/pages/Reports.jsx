@@ -111,7 +111,7 @@ export const Reports = () => {
                             onClick={generateReport}
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
                         >
-                            Generuj raport
+                            Podgląd raportu
                         </button>
                         <button
                             onClick={() => downloadReport('pdf')}
@@ -159,6 +159,7 @@ export const Reports = () => {
                                     <th className="p-2 text-left min-w-[100px]">Data</th>
                                     <th className="grow p-2 text-left ">Opis</th>
                                     <th className="p-2 text-left min-w-[40px]">Kwota</th>
+                                    <th className="p-2 text-left min-w-[110px]">Typ</th>
                                 </tr>
                             </thead>
                         </table>
@@ -169,7 +170,8 @@ export const Reports = () => {
                                     <tr key={index} className='flex flex-row w-full bg-white border-b'>
                                         <td className="p-2 text-left min-w-[100px]">{transaction.date || transaction.transactionDate}</td>
                                         <td className="grow p-2 text-left">{transaction.description}</td>
-                                        <td className="p-2 text-left min-w-[40px]">{transaction.amount}</td>
+                                        <td className="p-2 text-left min-w-[65px]">{transaction.amount}</td>
+                                        <td className="p-2 text-left min-w-[100px]">{transaction.type}</td>
                                     </tr>
                                 ))}
                                 </tbody>
