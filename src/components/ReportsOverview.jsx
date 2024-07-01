@@ -5,6 +5,10 @@ export const ReportsOverview = ({ selectedMonth }) => {
     const [reportPreview, setReportPreview] = useState(null); // Nowy stan do przechowywania podglądu raportu
     const userId = 1; // Replace with dynamic user ID as needed
 
+    useEffect(() => {
+        generateReport();
+    }, [selectedMonth]);
+
     const generateReport = async () => {
         try {
             const response = await axios.post(`/api/reports/generate`, null, {
@@ -45,25 +49,13 @@ export const ReportsOverview = ({ selectedMonth }) => {
         return date.toLocaleString('pl-PL', { month: 'long', year: 'numeric' });
     };
 
-    const handleCloseReportPreview = () => {
-        setReportPreview(null);
-    };
-
     return (
         <div className="flex flex-col h-full gap-2 shadow-lg bg-blue-100 overflow-hidden">
             <div className="flex gap-2 p-2 pb-0 items-center justify-center place-items-center ">
-                <h2 className="grow text-2xl font-bold">Raporty</h2>
-                <button onClick={generateReport} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Podgląd raportu</button>
+                <h2 className="grow text-2xl font-bold">Podgląd Raportu</h2>
             </div>
             {reportPreview && (
                 <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg relative m-1 mt-0 overflow-hidden">
-                    <button
-                        onClick={handleCloseReportPreview}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-                    >
-                        &times;
-                    </button>
-                    <h2 className="text-xl font-bold mb-4">Podgląd Raportu</h2>
                     <table className="w-full border border-black bg-white">
                         <thead>
                         <tr>
