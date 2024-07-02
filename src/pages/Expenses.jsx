@@ -28,7 +28,6 @@ export const Expenses = () => {
     });
     const [selectedMonth, setSelectedMonth] = useState(new Date());
     const datepickerRef = useRef(null);
-    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         fetchTransactions(dayjs(selectedMonth).format('YYYY-MM'));
@@ -76,15 +75,10 @@ export const Expenses = () => {
                 .filter(transaction => transaction.categoryName === "Rozrywka")
                 .reduce((acc, transaction) => acc + transaction.amount, 0) + newTransaction.amount;
 
-            if (rozrywkaExpense > 2000) {
+            if (newTransaction.categoryName === "Rozrywka" && rozrywkaExpense > 2000) {
                 toast.warn(`Wydatki na kategorię "Rozrywka" przekroczyły 2000 PLN w tym miesiącu. Proszę rozważyć zmniejszenie wydatków.`);
             }
         }
-
-        setShowAlert(true);
-        setTimeout(() => {
-            setShowAlert(false);
-        }, 3000);
     };
 
     const formattedTotalExpense = numeral(totalExpense).format('0,0.00');
@@ -108,8 +102,6 @@ export const Expenses = () => {
             },
         },
     };
-
-
 
     const formatDate = (date) => {
         return dayjs(date).format('MMMM YYYY');
@@ -148,12 +140,6 @@ export const Expenses = () => {
                     </div>
                     <p className="text-center text-red-500 text-lg md:text-3xl font-semibold p-1">${formattedTotalExpense}</p>
                 </div>
-                {showAlert && (
-                    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                        <strong className="font-bold">Sukces!</strong>
-                        <span className="block sm:inline"> Wydatek został dodany.</span>
-                    </div>
-                )}
                 <div className="flex flex-grow flex-wrap 2xl:flex-nowrap px-0 md:px-2 p-2 gap-2 bg-gray-100 w-full overflow-auto scrollbar-none 2xl:overflow-hidden">
                     <div className="flex flex-col h-auto md:h-full w-full md:w-1/2 2xl:w-1/3 min-w-[320px] md:min-w-[350px] bg-blue-100 p-4 rounded-md">
                         <h2 className="text-blue-600 text-2xl bg-blue-100 p-2">Dodaj nowy wydatek</h2>
@@ -189,7 +175,7 @@ export const Expenses = () => {
                                 </CardHeader>
                                 <CardBody className="px-4 pb-0 h-full">
                                     <div className="w-full h-full">
-                                        <Chart {...customChartConfig} height="100%"/>
+                                        <Chart {...customChartConfig} height="100%" />
                                     </div>
                                 </CardBody>
                             </Card>
