@@ -4,7 +4,7 @@ export const GoalCard = ({ id, name, description, amount, goal, onDonateClick, o
     const progress = Math.min((amount / goal) * 100, 100);
 
     return (
-        <div className="border rounded-lg shadow-lg p-4 bg-blue-100 flex flex-col justify-between h-full">
+        <div className="border rounded-lg shadow-lg p-4 bg-blue-100 flex flex-col justify-between h-50">
             <div className="flex justify-between items-start mb-4">
                 <h3 className="text-blue-600 text-xl md:text-2xl flex-1">{name}</h3>
                 <div className="flex space-x-2">

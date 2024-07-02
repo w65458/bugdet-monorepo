@@ -84,7 +84,7 @@ export const ReportsOverview = ({ selectedMonth }) => {
                             </tr>
                         </thead>
                     </table>
-                    <div className="pt-0 flex flex-col gap-2 scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto">
+                    <div className="pt-0 flex flex-col gap-2 scrollbar scrollbar-w-1.5 scrollbar-thumb-rounded-full scrollbar-thumb-blue-500 h-full overflow-y-auto overflow-x-hidden">
                         <table className="w-full bg-white">
                             <tbody className='flex flex-col w-full bg-white'>
                             {reportPreview.transactions.map((transaction, index) => (
