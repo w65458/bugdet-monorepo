@@ -158,7 +158,7 @@ export const Goals = () => {
           {currentForm === 'addGoal' && <GoalForm onClose={handleOnClose} onGoalCreated={handleGoalCreated} />}
           {currentForm === 'editGoal' && <GoalForm onClose={handleOnClose} onGoalCreated={handleGoalCreated} goalId={currentGoalId} initialData={initialData} />}
           {currentForm === 'donate' && (
-              <div className="p-4 bg-white rounded shadow-md">
+              <div className="p-4 bg-white rounded">
                 <h1 className="text-center text-2xl font-bold mb-6">Wpłać na Cel: {currentGoalName}</h1>
                 <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
