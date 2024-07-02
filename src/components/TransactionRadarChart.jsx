@@ -96,14 +96,14 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 }
             }
         },
-        // grid: {
-        //     padding: {
-        //         top: -10,
-        //         bottom: -10,
-        //         left: 0,
-        //         right: 0
-        //     }
-        // },
+        grid: {
+            padding: {
+                top: -10,
+                bottom: -10,
+                left: 60,
+                right: 20
+            }
+        },
         colors: ['green', 'red'],
         legend: {
             position: 'bottom',
@@ -138,7 +138,7 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 </div>
             </div>
             <div className="flex-grow flex items-center justify-center">
-                <div className="w-full h-full" style={{ maxWidth: '600px', maxHeight: '600px'}}>
+                <div className="w-full h-full" style={{ maxWidth: '550px', maxHeight: '600px'}}>
                     <Chart options={chartOptions} series={chartData.series} type="radar" height="100%" width="100%" />
                 </div>
             </div>
