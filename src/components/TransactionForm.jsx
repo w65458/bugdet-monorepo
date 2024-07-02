@@ -83,10 +83,18 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                     >
                         <option value="">Wybierz kategorię</option>
                         <option value="Jedzenie">Jedzenie</option>
+                        <option value="Elektronika">Elektronika</option>
+                        <option value="Subskrypcje">Subskrypcje</option>
                         <option value="Transport">Transport</option>
                         <option value="Rozrywka">Rozrywka</option>
-                        <option value="Rachunki">Rachunki</option>
-                        <option value="Inne">Inne</option>
+                        <option value="Wynagrodzenie">Wynagrodzenie</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Odzież">Odzież</option>
+                        <option value="Zdrowie">Zdrowie</option>
+                        <option value="Edukacja">Edukacja</option>
+                        <option value="Premia">Premia</option>
+                        <option value="Inwestycje">Inwestycje</option>
+                        <option value="Prezenty">Prezenty</option>
                     </select>
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
                 </div>

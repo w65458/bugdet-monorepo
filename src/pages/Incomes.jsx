@@ -37,7 +37,7 @@ export const Incomes = () => {
             const response = await axios.get('/api/transactions/1');
             const incomes = response.data.filter(transaction =>
                 transaction.type === 'Przychody' && dayjs(transaction.transactionDate).format('YYYY-MM') === month
-            );
+            ).reverse();
             setTransactions(incomes);
             const total = incomes.reduce((acc, transaction) => acc + transaction.amount, 0);
             setTotalIncome(total);
@@ -81,12 +81,15 @@ export const Incomes = () => {
 
     const customChartConfig = {
         ...chartConfig,
-        series: chartData.series,
+        series: chartData.series.map(series => ({
+            ...series,
+            data: [...series.data].reverse(),
+        })),
         options: {
             ...chartConfig.options,
             xaxis: {
                 ...chartConfig.options.xaxis,
-                categories: chartData.categories,
+                categories: [...chartData.categories].reverse(),
                 labels: {
                     rotate: -45,
                     rotateAlways: true,

@@ -22,7 +22,7 @@ export const TransactionList = ({ selectedMonth }) => {
                 filteredTransactions = filteredTransactions.filter(transaction => transaction.type === transactionType);
             }
 
-            setTransactions(filteredTransactions.slice(0, 16));
+            setTransactions(filteredTransactions.slice(0, 16).reverse());
         } catch (error) {
             console.error('Error fetching transactions:', error);
         }

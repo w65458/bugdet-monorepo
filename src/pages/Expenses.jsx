@@ -13,7 +13,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import pl from 'date-fns/locale/pl';
 import numeral from "numeral";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 dayjs.locale('pl');
@@ -39,7 +39,7 @@ export const Expenses = () => {
             const response = await axios.get('/api/transactions/1');
             const expenses = response.data.filter(transaction =>
                 transaction.type === 'Wydatki' && dayjs(transaction.transactionDate).format('YYYY-MM') === month
-            );
+            ).reverse(); // Odwróć kolejność transakcji tutaj
             setTransactions(expenses);
             const total = expenses.reduce((acc, transaction) => acc + transaction.amount, 0);
             setTotalExpense(total);
@@ -72,7 +72,13 @@ export const Expenses = () => {
                 };
             });
 
-            checkCategoryLimitOnAdd(newTransaction);
+            const rozrywkaExpense = transactions
+                .filter(transaction => transaction.categoryName === "Rozrywka")
+                .reduce((acc, transaction) => acc + transaction.amount, 0) + newTransaction.amount;
+
+            if (rozrywkaExpense > 2000) {
+                toast.warn(`Wydatki na kategorię "Rozrywka" przekroczyły 2000 PLN w tym miesiącu. Proszę rozważyć zmniejszenie wydatków.`);
+            }
         }
 
         setShowAlert(true);
@@ -81,30 +87,19 @@ export const Expenses = () => {
         }, 3000);
     };
 
-    const checkCategoryLimitOnAdd = (newTransaction) => {
-        if (newTransaction.categoryName === 'Rozrywka') {
-            const currentMonthTransactions = transactions.filter(transaction =>
-                transaction.categoryName === 'Rozrywka' &&
-                dayjs(transaction.transactionDate).format('YYYY-MM') === dayjs(selectedMonth).format('YYYY-MM')
-            );
-            const totalInCategory = currentMonthTransactions.reduce((acc, transaction) => acc + transaction.amount, 0) + newTransaction.amount;
-
-            if (totalInCategory > 2000) {
-                toast.warn(`Wydatki na kategorię "Rozrywka" przekroczyły 2000 PLN w tym miesiącu. Proszę rozważyć zmniejszenie wydatków.`);
-            }
-        }
-    };
-
     const formattedTotalExpense = numeral(totalExpense).format('0,0.00');
 
     const customChartConfig = {
         ...chartConfig,
-        series: chartData.series,
+        series: chartData.series.map(series => ({
+            ...series,
+            data: [...series.data].reverse(),
+        })),
         options: {
             ...chartConfig.options,
             xaxis: {
                 ...chartConfig.options.xaxis,
-                categories: chartData.categories,
+                categories: [...chartData.categories].reverse(),
                 labels: {
                     rotate: -45,
                     rotateAlways: true,
@@ -113,6 +108,8 @@ export const Expenses = () => {
             },
         },
     };
+
+
 
     const formatDate = (date) => {
         return dayjs(date).format('MMMM YYYY');
@@ -136,7 +133,7 @@ export const Expenses = () => {
                             dateFormat="MMMM yyyy"
                             showMonthYearPicker
                             locale="pl"
-                            className="p-0 md:p-2 border-none md:border border-gray-300 rounded-md shadow-sm"
+                            className="p-0 md:p-2border-none md:border border-gray-300 rounded-md shadow-sm"
                             customInput={
                                 <div className="flex items-center">
                                     <input

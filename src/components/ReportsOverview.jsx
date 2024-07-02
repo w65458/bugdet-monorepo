@@ -17,8 +17,8 @@ export const ReportsOverview = ({ selectedMonth }) => {
                     month: `${new Date(selectedMonth).getFullYear()}-${String(new Date(selectedMonth).getMonth() + 1).padStart(2, '0')}-01`
                 }
             });
-            console.log('Raport wygenerowany:', response.data);
-            setReportPreview(response.data); // Ustaw podgląd raportu
+            const reversedTransactions = response.data.transactions.reverse();
+            setReportPreview({ ...response.data, transactions: reversedTransactions });
         } catch (error) {
             console.error('Error generating report:', error);
         }
