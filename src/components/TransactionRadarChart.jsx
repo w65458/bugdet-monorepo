@@ -3,7 +3,7 @@ import axios from 'axios';
 import Chart from 'react-apexcharts';
 import dayjs from 'dayjs';
 
-export const TransactionRadarChart = ({ selectedMonth }) => {
+export const TransactionRadarChart = ({ selectedDate }) => {
     const [transactionType, setTransactionType] = useState('Przychody');
     const [chartData, setChartData] = useState({
         categories: ['Kategoria 1', 'Kategoria 2', 'Kategoria 3', 'Kategoria 4', 'Kategoria 5', 'Kategoria 6', 'Kategoria 7'],
@@ -12,14 +12,14 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
 
     useEffect(() => {
         fetchTransactionData(transactionType);
-    }, [transactionType, selectedMonth]);
+    }, [transactionType, selectedDate]);
 
     const fetchTransactionData = async (type) => {
         try {
             const response = await axios.get('/api/transactions/1');
             const transactions = response.data.filter(transaction =>
                 (type === 'Wszystkie' || transaction.type === type) &&
-                dayjs(transaction.transactionDate).format('YYYY-MM') === dayjs(selectedMonth).format('YYYY-MM')
+                dayjs(transaction.transactionDate).format('YYYY-MM') === dayjs(selectedDate).format('YYYY-MM')
             );
 
             const categoryCountsIncomes = transactions.reduce((acc, transaction) => {
@@ -113,24 +113,24 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-blue-100 shadow-lg">
+        <div className="flex flex-col h-full bg-blue-100 dark:bg-gray-800 shadow-lg rounded-lg">
             <div className="flex flex-col justify-between p-2 gap-2 items-center w-full">
-                <h2 className="w-full text-left text-2xl font-bold">Transakcje według kategorii</h2>
+                <h2 className="w-full text-left text-2xl font-bold text-blue-600 dark:text-blue-400">Kategorie transakcji</h2>
                 <div className="flex w-full items-center justify-center place-items-center gap-2">
                     <button
-                        className={`p-2 rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Przychody' ? 'bg-blue-500 text-white' : 'bg-indigo-200 dark:bg-gray-700 dark:text-gray-300 text-black'}`}
                         onClick={() => handleTypeChange('Przychody')}
                     >
                         Przychody
                     </button>
                     <button
-                        className={`p-2 rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Wydatki' ? 'bg-blue-500 text-white' : 'bg-indigo-200 dark:bg-gray-700 dark:text-gray-300 text-black'}`}
                         onClick={() => handleTypeChange('Wydatki')}
                     >
                         Wydatki
                     </button>
                     <button
-                        className={`p-2  rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-indigo-200 text-black'}`}
+                        className={`p-2 rounded-lg ${transactionType === 'Wszystkie' ? 'bg-blue-500 text-white' : 'bg-indigo-200 dark:bg-gray-700 dark:text-gray-300 text-black'}`}
                         onClick={() => handleTypeChange('Wszystkie')}
                     >
                         Wszystkie
@@ -138,10 +138,11 @@ export const TransactionRadarChart = ({ selectedMonth }) => {
                 </div>
             </div>
             <div className="flex-grow flex items-center justify-center">
-                <div className="w-full h-full" style={{ maxWidth: '550px', maxHeight: '600px'}}>
-                    <Chart options={chartOptions} series={chartData.series} type="radar" height="100%" width="100%" />
+                <div className="w-full h-full" style={{maxWidth: '550px', maxHeight: '600px'}}>
+                    <Chart options={chartOptions} series={chartData.series} type="radar" height="100%" width="100%"/>
                 </div>
             </div>
         </div>
+
     );
 };

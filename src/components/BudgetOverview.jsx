@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-export const BudgetOverview = ({ selectedMonth }) => {
+export const BudgetOverview = ({ selectedDate }) => {
     const [budgetState, setBudgetState] = useState({
         totalIncome: 0,
         totalExpenses: 0,
@@ -10,8 +10,8 @@ export const BudgetOverview = ({ selectedMonth }) => {
     });
 
     useEffect(() => {
-        fetchBudgetData(dayjs(selectedMonth).format('YYYY-MM'));
-    }, [selectedMonth]);
+        fetchBudgetData(dayjs(selectedDate).format('YYYY-MM'));
+    }, [selectedDate]);
 
     const fetchBudgetData = async (month) => {
         try {
@@ -37,21 +37,21 @@ export const BudgetOverview = ({ selectedMonth }) => {
     };
 
     return (
-        <div className="flex w-full bg-blue-100 p-2 rounded-lg">
+        <div className="flex w-full bg-blue-100 dark:bg-gray-800 p-2">
             <div className="grow flex flex-row justify-around">
                 <div className="text-center">
-                    <h3 className="text-xl font-bold">Saldo</h3>
-                    <p className={`text-2xl ${budgetState.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        ${budgetState.balance}
+                    <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400">Saldo</h3>
+                    <p className={`text-2xl ${budgetState.balance >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                        {budgetState.balance} zł
                     </p>
                 </div>
                 <div className="text-center">
-                    <h3 className="text-xl font-bold">Przychody</h3>
-                    <p className="text-2xl text-green-600">${budgetState.totalIncome}</p>
+                    <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400">Przychody</h3>
+                    <p className="text-2xl text-green-600 dark:text-green-400">{budgetState.totalIncome} zł</p>
                 </div>
                 <div className="text-center">
-                    <h3 className="text-xl font-bold">Wydatki</h3>
-                    <p className="text-2xl text-red-600">${budgetState.totalExpenses}</p>
+                    <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400">Wydatki</h3>
+                    <p className="text-2xl text-red-600 dark:text-red-400">{budgetState.totalExpenses} zł</p>
                 </div>
             </div>
         </div>

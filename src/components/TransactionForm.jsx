@@ -29,19 +29,17 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
         if (Object.keys(newErrors).length === 0) {
             try {
                 const response = await axios.post('/api/transactions', {
-                    userId, // Assuming userId is passed as a prop
-                    categoryName, // Sending categoryName as a string
-                    amount: parseFloat(amount), // Ensure amount is sent as a number
+                    userId,
+                    categoryName,
+                    amount: parseFloat(amount),
                     type: transaction_name,
                     description,
                     transactionDate: date
                 });
-                console.log('Transaction added:', response.data);
-                // Call the onAddTransaction callback with the new transaction
+                console.log('Transaction added: ', response.data);
                 if (onAddTransaction) {
-                    onAddTransaction(response.data);
+                    onAddTransaction();
                 }
-                // Optionally, reset the form
                 setName('');
                 setCategoryName('');
                 setDescription('');
@@ -58,7 +56,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
         <div className="p-2 flex flex-col w-full">
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold" htmlFor="name">
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="name">
                         Nazwa
                     </label>
                     <input
@@ -66,20 +64,20 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
                         placeholder="Wpisz nazwę"
                     />
                     {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold" htmlFor="category">
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="category">
                         Kategoria
                     </label>
                     <select
                         id="category"
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
                     >
                         <option value="">Wybierz kategorię</option>
                         <option value="Jedzenie">Jedzenie</option>
@@ -95,26 +93,28 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         <option value="Premia">Premia</option>
                         <option value="Inwestycje">Inwestycje</option>
                         <option value="Prezenty">Prezenty</option>
+                        <option value="Podatki">Podatki</option>
+                        <option value="Opłaty">Opłaty</option>
                     </select>
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold" htmlFor="description">
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="description">
                         Opis
                     </label>
                     <textarea
                         id="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
+                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 resize-none"
                         placeholder="Wpisz opis (max 30 znaków)"
-                        maxLength="30"
+                        maxLength="150"
                         rows="3"
                     />
                     {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold" htmlFor="date">
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="date">
                         Data
                     </label>
                     <input
@@ -122,12 +122,12 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
                     />
                     {errors.date && <p className="text-red-500 text-xs italic">{errors.date}</p>}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold" htmlFor="amount">
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="amount">
                         Kwota
                     </label>
                     <input
@@ -140,7 +140,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                                 setAmount(value);
                             }
                         }}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
                         placeholder="Wpisz kwotę"
                         max={9999999}
                     />
@@ -149,7 +149,7 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                 <div className="flex items-center justify-center">
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         Utwórz
                     </button>
