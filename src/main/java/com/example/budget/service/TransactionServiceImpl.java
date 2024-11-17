@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionDto> getAllTransactionsByUserId(Long userId) {
-        List<Transaction> transactions = transactionRepository.findByUserId(userId);
+        List<Transaction> transactions = transactionRepository.findByUserIdOrderByTransactionDateAsc(userId);
 
         return transactions.stream()
                 .map(TransactionMapper.INSTANCE::transactionToTransactionDto)
