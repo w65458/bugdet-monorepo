@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) => {
-    const [name, setName] = useState('');
-    const [categoryName, setCategoryName] = useState('');
     const [description, setDescription] = useState('');
+    const [categoryName, setCategoryName] = useState('');
     const [date, setDate] = useState('');
     const [amount, setAmount] = useState('');
     const [errors, setErrors] = useState({});
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         const today = new Date();
@@ -15,13 +15,25 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
         setDate(formattedDate);
     }, []);
 
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('/api/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories: ', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
-        if (!name) newErrors.name = 'Pole nazwa jest wymagane';
+        if (description.length > 150) newErrors.description = 'Pole opis może mieć maksymalnie 150 znaków';
         if (!date) newErrors.date = 'Pole data jest wymagane';
         if (!amount) newErrors.amount = 'Pole kwota jest wymagane';
-        if (description.length > 150) newErrors.description = 'Pole opis może mieć maksymalnie 150 znaków';
         if (!categoryName) newErrors.category = 'Pole kategoria jest wymagane';
 
         setErrors(newErrors);
@@ -40,14 +52,13 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                 if (onAddTransaction) {
                     onAddTransaction();
                 }
-                setName('');
-                setCategoryName('');
                 setDescription('');
+                setCategoryName('');
                 setDate('');
                 setAmount('');
                 setErrors({});
             } catch (error) {
-                console.error('Error adding transaction:', error);
+                console.error('Error adding transaction: ', error);
             }
         }
     };
@@ -56,18 +67,19 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
         <div className="p-2 flex flex-col w-full">
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="name">
-                        Nazwa
+                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="description">
+                        Opis
                     </label>
-                    <input
-                        id="name"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                    <textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
-                        placeholder="Wpisz nazwę"
+                        placeholder="Wpisz opis transakcji (max 150 znaków)"
+                        maxLength="150"
+                        rows="3"
                     />
-                    {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
+                    {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="category">
@@ -79,39 +91,16 @@ export const TransactionForm = ({ transaction_name, userId, onAddTransaction }) 
                         onChange={(e) => setCategoryName(e.target.value)}
                         className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700"
                     >
-                        <option value="">Wybierz kategorię</option>
-                        <option value="Jedzenie">Jedzenie</option>
-                        <option value="Elektronika">Elektronika</option>
-                        <option value="Subskrypcje">Subskrypcje</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Rozrywka">Rozrywka</option>
-                        <option value="Wynagrodzenie">Wynagrodzenie</option>
-                        <option value="Freelance">Freelance</option>
-                        <option value="Odzież">Odzież</option>
-                        <option value="Zdrowie">Zdrowie</option>
-                        <option value="Edukacja">Edukacja</option>
-                        <option value="Premia">Premia</option>
-                        <option value="Inwestycje">Inwestycje</option>
-                        <option value="Prezenty">Prezenty</option>
-                        <option value="Podatki">Podatki</option>
-                        <option value="Opłaty">Opłaty</option>
+                        <option value="" disabled hidden>
+                            Wybierz kategorię
+                        </option>
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.name}>
+                                {category.name}
+                            </option>
+                        ))}
                     </select>
                     {errors.category && <p className="text-red-500 text-xs italic">{errors.category}</p>}
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="description">
-                        Opis
-                    </label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 resize-none"
-                        placeholder="Wpisz opis (max 30 znaków)"
-                        maxLength="150"
-                        rows="3"
-                    />
-                    {errors.description && <p className="text-red-500 text-xs italic">{errors.description}</p>}
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold" htmlFor="date">
