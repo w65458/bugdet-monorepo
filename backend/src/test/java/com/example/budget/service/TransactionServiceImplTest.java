@@ -103,13 +103,13 @@ class TransactionServiceImplTest {
     @Test
     void getAllTransactionsByUserId_ShouldReturnListOfTransactions() {
         List<Transaction> transactions = Arrays.asList(transaction);
-        when(transactionRepository.findByUserId(anyLong())).thenReturn(transactions);
+        when(transactionRepository.findByUserIdOrderByTransactionDateAsc(anyLong())).thenReturn(transactions);
 
         List<TransactionDto> result = transactionService.getAllTransactionsByUserId(1L);
 
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(transaction.getAmount(), result.get(0).getAmount());
-        verify(transactionRepository, times(1)).findByUserId(anyLong());
+        verify(transactionRepository, times(1)).findByUserIdOrderByTransactionDateAsc(anyLong());
     }
 }
