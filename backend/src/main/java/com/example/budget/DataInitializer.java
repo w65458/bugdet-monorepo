@@ -92,6 +92,47 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
         paymentCategoryRepository.save(freelanceCategory);
 
+        PaymentCategory educationCategory = PaymentCategory.builder()
+                .name("Edukacja")
+                .build();
+        paymentCategoryRepository.save(educationCategory);
+
+        PaymentCategory clothesCategory = PaymentCategory.builder()
+                .name("Odzież")
+                .build();
+        paymentCategoryRepository.save(clothesCategory);
+
+        PaymentCategory healthCategory = PaymentCategory.builder()
+                .name("Zdrowie")
+                .build();
+        paymentCategoryRepository.save(healthCategory);
+
+        PaymentCategory bonusCategory = PaymentCategory.builder()
+                .name("Premia")
+                .build();
+        paymentCategoryRepository.save(bonusCategory);
+
+        PaymentCategory investmentCategory = PaymentCategory.builder()
+                .name("Inwestycje")
+                .build();
+        paymentCategoryRepository.save(investmentCategory);
+
+        PaymentCategory giftCategory = PaymentCategory.builder()
+                .name("Prezenty")
+                .build();
+        paymentCategoryRepository.save(giftCategory);
+
+        PaymentCategory taxesCategory = PaymentCategory.builder()
+                .name("Podatki")
+                .build();
+        paymentCategoryRepository.save(taxesCategory);
+
+        PaymentCategory feesCategory = PaymentCategory.builder()
+                .name("Opłaty")
+                .build();
+        paymentCategoryRepository.save(feesCategory);
+
+
         BudgetDto budget1 = new BudgetDto();
         budget1.setUserId(user1.getId());
         budget1.setCategoryName(foodCategory.getName());
@@ -126,25 +167,25 @@ public class DataInitializer implements CommandLineRunner {
         transaction1.setUserId(user1.getId());
         transaction1.setCategoryName(foodCategory.getName());
         transaction1.setAmount(150.00);
-        transaction1.setType("Wydatki");
+        transaction1.setType(WYDATKI);
         transaction1.setDescription("Zakupy spożywcze w Biedronce");
-        transaction1.setTransactionDate(LocalDate.now());
+        transaction1.setTransactionDate(LocalDate.now().minusDays(1));
         transactionService.createTransaction(transaction1);
 
         TransactionDto transaction2 = new TransactionDto();
         transaction2.setUserId(user1.getId());
         transaction2.setCategoryName(subscriptionCategory.getName());
         transaction2.setAmount(40.00);
-        transaction2.setType("Wydatki");
+        transaction2.setType(WYDATKI);
         transaction2.setDescription("Subskrypcja Netflix");
-        transaction2.setTransactionDate(LocalDate.now());
+        transaction2.setTransactionDate(LocalDate.now().minusDays(2));
         transactionService.createTransaction(transaction2);
 
         TransactionDto transaction3 = new TransactionDto();
         transaction3.setUserId(user2.getId());
         transaction3.setCategoryName(electronicsCategory.getName());
         transaction3.setAmount(200.00);
-        transaction3.setType("Wydatki");
+        transaction3.setType(WYDATKI);
         transaction3.setDescription("Zakup słuchawek");
         transaction3.setTransactionDate(LocalDate.now());
         transactionService.createTransaction(transaction3);
@@ -153,7 +194,7 @@ public class DataInitializer implements CommandLineRunner {
         transaction4.setUserId(user2.getId());
         transaction4.setCategoryName(transportCategory.getName());
         transaction4.setAmount(100.00);
-        transaction4.setType("Wydatki");
+        transaction4.setType(WYDATKI);
         transaction4.setDescription("Bilet miesięczny na komunikację miejską");
         transaction4.setTransactionDate(LocalDate.now());
         transactionService.createTransaction(transaction4);
@@ -167,10 +208,28 @@ public class DataInitializer implements CommandLineRunner {
         transaction5.setTransactionDate(LocalDate.now());
         transactionService.createTransaction(transaction5);
 
+        TransactionDto transaction6 = new TransactionDto();
+        transaction6.setUserId(user1.getId());
+        transaction6.setCategoryName(feesCategory.getName());
+        transaction6.setAmount(2500.00);
+        transaction6.setType(WYDATKI);
+        transaction6.setDescription("Czynsz za mieszkanie");
+        transaction6.setTransactionDate(LocalDate.now().minusDays(3));
+        transactionService.createTransaction(transaction6);
+
+        TransactionDto transaction7 = new TransactionDto();
+        transaction7.setUserId(user1.getId());
+        transaction7.setCategoryName(feesCategory.getName());
+        transaction7.setAmount(500.00);
+        transaction7.setType(WYDATKI);
+        transaction7.setDescription("Paliwo");
+        transaction7.setTransactionDate(LocalDate.now().minusDays(4));
+        transactionService.createTransaction(transaction7);
+
         TransactionDto income1 = new TransactionDto();
         income1.setUserId(user1.getId());
         income1.setCategoryName(salaryCategory.getName());
-        income1.setAmount(5000.00);
+        income1.setAmount(6000.00);
         income1.setType(PRZYCHODY);
         income1.setDescription("Wynagrodzenie za pracę");
         income1.setTransactionDate(LocalDate.now().minusDays(10));
@@ -180,16 +239,16 @@ public class DataInitializer implements CommandLineRunner {
         income2.setUserId(user1.getId());
         income2.setCategoryName(freelanceCategory.getName());
         income2.setAmount(800.00);
-        income2.setType("Przychody");
+        income2.setType(PRZYCHODY);
         income2.setDescription("Projekt freelance - strona internetowa");
-        income2.setTransactionDate(LocalDate.now().minusDays(5));
+        income2.setTransactionDate(LocalDate.now().minusDays(8));
         transactionService.createTransaction(income2);
 
         TransactionDto income3 = new TransactionDto();
         income3.setUserId(user2.getId());
         income3.setCategoryName(salaryCategory.getName());
         income3.setAmount(4500.00);
-        income3.setType("Przychody");
+        income3.setType(PRZYCHODY);
         income3.setDescription("Wynagrodzenie za pracę");
         income3.setTransactionDate(LocalDate.now().minusDays(10));
         transactionService.createTransaction(income3);
@@ -198,7 +257,7 @@ public class DataInitializer implements CommandLineRunner {
         income4.setUserId(user2.getId());
         income4.setCategoryName(freelanceCategory.getName());
         income4.setAmount(1200.00);
-        income4.setType("Przychody");
+        income4.setType(PRZYCHODY);
         income4.setDescription("Projekt freelance - aplikacja mobilna");
         income4.setTransactionDate(LocalDate.now().minusDays(3));
         transactionService.createTransaction(income4);
@@ -207,7 +266,7 @@ public class DataInitializer implements CommandLineRunner {
         income5.setUserId(user3.getId());
         income5.setCategoryName(salaryCategory.getName());
         income5.setAmount(4800.00);
-        income5.setType("Przychody");
+        income5.setType(PRZYCHODY);
         income5.setDescription("Wynagrodzenie za pracę");
         income5.setTransactionDate(LocalDate.now().minusDays(10));
         transactionService.createTransaction(income5);
@@ -216,7 +275,7 @@ public class DataInitializer implements CommandLineRunner {
         income6.setUserId(user3.getId());
         income6.setCategoryName(freelanceCategory.getName());
         income6.setAmount(600.00);
-        income6.setType("Przychody");
+        income6.setType(PRZYCHODY);
         income6.setDescription("Projekt freelance - grafika");
         income6.setTransactionDate(LocalDate.now().minusDays(7));
         transactionService.createTransaction(income6);
