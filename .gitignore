@@ -1,0 +1,22 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Temporary files
+*.log
+*.bak
+*.swp
+
+# Environment
+.env
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
