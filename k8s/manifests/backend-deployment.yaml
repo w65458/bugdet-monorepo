@@ -4,7 +4,6 @@ metadata:
   name: backend-deployment
   labels:
     app: budget-backend
-  namespace: budget
 spec:
   replicas: 2
   selector:

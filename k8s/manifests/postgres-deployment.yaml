@@ -4,7 +4,6 @@ metadata:
   name: postgres-deployment
   labels:
     app: postgres
-  namespace: budget
 spec:
   replicas: 2
   selector:
