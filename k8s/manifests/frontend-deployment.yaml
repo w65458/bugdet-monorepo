@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: budget-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: budget-frontend
+  template:
+    metadata:
+      name: frontend-deployment
+      labels:
+        app: budget-frontend
+    spec:
+      containers:
+        - name: budget-frontend
+          image: budget-monorepo-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: VITE_BACKEND_URL
+              value: "http://backend-service:8080"
