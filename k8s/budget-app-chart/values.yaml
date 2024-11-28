@@ -1,0 +1,45 @@
+global:
+  namespace: budget
+  imagePullPolicy: IfNotPresent
+
+frontend:
+  replicas: 2
+  labels:
+    app: budget-frontend
+  image:
+    repository: budget-monorepo-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 3000
+    nodePort: 30000
+
+backend:
+  replicas: 2
+  labels:
+    app: budget-backend
+  image:
+    repository: budget-monorepo-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 8080
+    nodePort: 30001
+
+postgres:
+  replicas: 2
+  labels:
+    app: postgres
+  image:
+    repository: postgres
+    tag: "15"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 5432
+  env:
+    POSTGRES_USER: admin
+    POSTGRES_PASSWORD: admin
+    POSTGRES_DB: budget_db

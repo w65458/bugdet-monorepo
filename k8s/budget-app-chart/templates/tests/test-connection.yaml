@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "budget-app.fullname" . }}-test-backend-connection"
+  labels:
+    {{- include "budget-app.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "budget-app.fullname" . }}:{{ .Values.backend.service.port }}']
+  restartPolicy: Never

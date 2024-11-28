@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: {{ .Values.backend.labels.app }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.backend.labels.app }}
+  template:
+    metadata:
+      name: backend-deployment
+      labels:
+        app: {{ .Values.backend.labels.app }}
+    spec:
+      containers:
+        - name: budget-backend
+          image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.service.port }}

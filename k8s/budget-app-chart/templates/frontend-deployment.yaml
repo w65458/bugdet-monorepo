@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: {{ .Values.frontend.labels.app }}
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.labels.app }}
+  template:
+    metadata:
+      name: frontend-deployment
+      labels:
+        app: {{ .Values.frontend.labels.app }}
+    spec:
+      containers:
+        - name: budget-frontend
+          image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.service.port }}
+          env:
+            - name: VITE_BACKEND_URL
+              value: "http://backend-service:8080"

@@ -1,0 +1,22 @@
+1. Get the application URL by running these commands:
+{{- if contains "NodePort" .Values.backend.service.type }}
+To access the backend service, run:
+  export NODE_PORT=$(kubectl get svc backend-service -o jsonpath="{.spec.ports[0].nodePort}")
+  echo "Backend URL: http://localhost:$NODE_PORT"
+{{- end }}
+
+2. To access the frontend service, run:
+{{- if contains "NodePort" .Values.frontend.service.type }}
+  export FRONTEND_PORT=$(kubectl get svc frontend-service -o jsonpath="{.spec.ports[0].nodePort}")
+  echo "Frontend URL: http://localhost:$FRONTEND_PORT"
+{{- end }}
+
+3. Database (PostgreSQL):
+{{- if contains "ClusterIP" .Values.postgres.service.type }}
+Your database is accessible within the cluster at:
+  Service: postgres-service
+  Port: {{ .Values.postgres.service.port }}
+  Username: {{ .Values.postgres.env.POSTGRES_USER }}
+  Password: {{ .Values.postgres.env.POSTGRES_PASSWORD }}
+  Database: {{ .Values.postgres.env.POSTGRES_DB }}
+{{- end }}
