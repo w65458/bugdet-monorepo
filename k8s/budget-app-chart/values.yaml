@@ -43,3 +43,7 @@ postgres:
     POSTGRES_USER: admin
     POSTGRES_PASSWORD: admin
     POSTGRES_DB: budget_db
+  persistence:
+    enabled: true
+    size: 2Gi
+    storageClass: standard
