@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-additional-scrape-configs
+  namespace: monitoring
+data:
+  additional-scrape-configs.yaml: |
+    - job_name: 'budget-backend'
+      static_configs:
+        - targets:
+            - 'backend-service.budget.svc:8080'
+      metrics_path: '/actuator/prometheus'
+      relabel_configs:
+        - source_labels: [ __address__ ]
+          target_label: instance
