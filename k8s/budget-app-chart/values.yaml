@@ -6,6 +6,11 @@ frontend:
   replicas: 2
   labels:
     app: budget-frontend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   image:
     repository: budget-monorepo-frontend
     tag: latest
@@ -14,11 +19,23 @@ frontend:
     type: NodePort
     port: 3000
     nodePort: 30000
+  resources:
+    requests:
+      memory: 64Mi
+      cpu: 250m
+    limits:
+      memory: 128Mi
+      cpu: 500m
 
 backend:
   replicas: 2
   labels:
     app: budget-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   image:
     repository: budget-monorepo-backend
     tag: latest
@@ -27,6 +44,13 @@ backend:
     type: NodePort
     port: 8080
     nodePort: 30001
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 500m
+    limits:
+      memory: 256Mi
+      cpu: 1
 
 postgres:
   replicas: 2

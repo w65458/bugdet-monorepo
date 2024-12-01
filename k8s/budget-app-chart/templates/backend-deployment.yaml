@@ -10,6 +10,11 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.backend.labels.app }}
+  strategy:
+    type: {{ .Values.backend.strategy.type }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.backend.strategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.backend.strategy.rollingUpdate.maxSurge }}
   template:
     metadata:
       name: backend-deployment
@@ -22,3 +27,10 @@ spec:
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.backend.service.port }}
+          resources:
+            requests:
+              memory: {{  .Values.backend.resources.requests.memory }}
+              cpu: {{  .Values.backend.resources.requests.cpu }}
+            limits:
+              memory: {{  .Values.backend.resources.limits.memory }}
+              cpu: {{  .Values.backend.resources.limits.cpu }}

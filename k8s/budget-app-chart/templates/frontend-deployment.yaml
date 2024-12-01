@@ -10,6 +10,11 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.frontend.labels.app }}
+  strategy:
+    type: {{ .Values.frontend.strategy.type }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.frontend.strategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.frontend.strategy.rollingUpdate.maxSurge }}
   template:
     metadata:
       name: frontend-deployment
@@ -25,3 +30,10 @@ spec:
           env:
             - name: VITE_BACKEND_URL
               value: "http://backend-service:8080"
+          resources:
+            requests:
+              memory: {{  .Values.frontend.resources.requests.memory }}
+              cpu: {{  .Values.frontend.resources.requests.cpu }}
+            limits:
+              memory: {{  .Values.frontend.resources.limits.memory }}
+              cpu: {{  .Values.frontend.resources.limits.cpu }}
